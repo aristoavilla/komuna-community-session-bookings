@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { ProgramDetailPage } from '../pages/ProgramDetailPage'
 import { PROGRAM_DETAILS } from '../data/programs'
+import { HeroSection } from '../pages/program-detail/HeroSection'
 
 function renderAtPath(path: string) {
   return render(
@@ -45,6 +46,16 @@ describe('ProgramDetailPage', () => {
     const btn = screen.getByRole('button', { name: /invitation only/i })
     expect(btn).toBeDisabled()
     expect(screen.getByText(/contact the admin/i)).toBeInTheDocument()
+  })
+
+  it('renders no join CTA for a private program', () => {
+    const privateProgram = { ...PROGRAM_DETAILS['p1'], visibility: 'private' as const }
+    render(
+      <MemoryRouter>
+        <HeroSection program={privateProgram} />
+      </MemoryRouter>
+    )
+    expect(screen.queryByRole('button', { name: /join|request|invitation/i })).toBeNull()
   })
 
   it('shows product type badges (SESSION / SIMPLE)', () => {
