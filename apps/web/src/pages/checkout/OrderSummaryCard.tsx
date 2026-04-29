@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import type { PackageMock } from '../../data/programs'
 import { parsePriceAmount, SERVICE_FEE_CONFIG } from '../../data/programs'
 
@@ -52,7 +53,7 @@ export function OrderSummaryCard({ pkg, onPay }: OrderSummaryCardProps) {
           {/* Section label */}
           <div
             style={{
-              fontFamily: 'var(--font-mono)',
+              fontFamily: 'var(--font-mono, monospace)',
               fontSize: 11,
               letterSpacing: '0.08em',
               textTransform: 'uppercase',
@@ -98,7 +99,7 @@ export function OrderSummaryCard({ pkg, onPay }: OrderSummaryCardProps) {
             </div>
             <div
               style={{
-                fontFamily: 'var(--font-serif)',
+                fontFamily: 'var(--font-serif, serif)',
                 fontSize: 28,
                 letterSpacing: '-0.02em',
                 color: 'var(--ink-1)',
@@ -204,8 +205,8 @@ export function OrderSummaryCard({ pkg, onPay }: OrderSummaryCardProps) {
           </div>
 
           {/* Links */}
-          <a
-            href="/wallet"
+          <Link
+            to="/wallet"
             style={{
               fontSize: 14,
               color: 'var(--accent)',
@@ -214,9 +215,9 @@ export function OrderSummaryCard({ pkg, onPay }: OrderSummaryCardProps) {
             }}
           >
             Go to my wallet →
-          </a>
-          <a
-            href={`/programs/${pkg.program_id}`}
+          </Link>
+          <Link
+            to={`/programs/${pkg.program_id}`}
             style={{
               fontSize: 13,
               color: 'var(--ink-3)',
@@ -225,7 +226,7 @@ export function OrderSummaryCard({ pkg, onPay }: OrderSummaryCardProps) {
             }}
           >
             Back to program →
-          </a>
+          </Link>
         </div>
       )}
 

@@ -9,7 +9,9 @@ export function CheckoutPage() {
   const { id, packageId } = useParams<{ id: string; packageId: string }>()
 
   const program = id ? PROGRAM_DETAILS[id] : undefined
-  const pkg = packageId ? PACKAGES.find((p) => p.id === packageId) : undefined
+  const pkg = packageId
+    ? PACKAGES.find((p) => p.id === packageId && p.program_id === id)
+    : undefined
 
   if (!id || !program || !packageId || !pkg) {
     return (
