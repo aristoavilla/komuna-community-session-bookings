@@ -10,6 +10,7 @@ const base: ProgramListItem = {
   description: 'High-intensity bag work.',
   visibility: 'public',
   timezone: 'America/New_York',
+  created_at: '2024-01-15T10:00:00Z',
   memberCount: 412,
   lowestPrice: '$28',
   location: 'Brooklyn, NY',
@@ -50,5 +51,10 @@ describe('ProgramCard', () => {
     render(<MemoryRouter><ProgramCard program={base} /></MemoryRouter>)
     expect(screen.getByText(/Brooklyn, NY/)).toBeInTheDocument()
     expect(screen.getByText(/412 members/)).toBeInTheDocument()
+  })
+
+  it('links to the program detail page', () => {
+    render(<MemoryRouter><ProgramCard program={base} /></MemoryRouter>)
+    expect(screen.getByRole('link')).toHaveAttribute('href', '/programs/p1')
   })
 })
