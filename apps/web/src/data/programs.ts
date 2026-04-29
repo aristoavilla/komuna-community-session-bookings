@@ -1260,3 +1260,36 @@ export const PACKAGES: PackageMock[] = [
     ],
   },
 ]
+
+// ─── Checkout & purchase flow mocks ──────────────────────────────────────────
+
+export const SERVICE_FEE_CONFIG = {
+  percentage: 0.05,   // 5%
+  minimum: 3.00,      // $3.00 minimum
+}
+
+export function parsePriceAmount(price: string): number {
+  const match = price.match(/[\d.]+/)
+  return match ? parseFloat(match[0]) : 0
+}
+
+// mirrors ERD PURCHASE table
+export type CheckoutPurchaseMock = {
+  id: string
+  program_member_id: string
+  created_at: string        // ISO-8601
+  total_amount: string      // display string
+  status: 'paid' | 'failed'
+}
+
+// mirrors ERD VOUCHER table fields relevant to issuance
+export type IssuedVoucherMock = {
+  id: string
+  product_id: string
+  product_name: string      // UI-only
+  source: 'purchase'
+  status: 'active'
+  expired_at: string        // ISO-8601
+  quantity: number          // UI-only: how many issued
+  validity_rule: string     // UI-only: display string
+}
