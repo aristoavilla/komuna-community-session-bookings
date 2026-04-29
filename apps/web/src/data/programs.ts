@@ -1,5 +1,43 @@
 // ─── ERD-aligned types ───────────────────────────────────────────────────────
 
+export type PackageEntryMock = {
+  // ERD: PACKAGE_ENTRY fields
+  id: string
+  package_id: string
+  product_id: string
+  quantity: number
+  validity_rule: string   // display string, e.g. "60 days from purchase"
+}
+
+export type PackageMock = {
+  // ERD: PURCHASE_PACKAGE fields
+  id: string
+  program_id: string
+  name: string
+  price: string           // display string, e.g. "$240"
+  status: 'active' | 'archived'
+  created_at: string      // ISO-8601
+
+  // UI-only
+  entries: PackageEntryMock[]
+}
+
+export type SessionInstanceMock = {
+  // ERD: SESSION fields
+  id: string
+  product_id: string
+  start_time: string      // ISO-8601
+  end_time: string        // ISO-8601
+  status: 'open' | 'full' | 'past'
+  is_active: boolean
+  created_at: string      // ISO-8601
+
+  // UI-only extras
+  coach: string
+  taken: number
+  capacity: number   // copied from product for display; avoids prop drilling
+}
+
 export type ProgramListItem = {
   // ERD: PROGRAM table fields
   id: string
@@ -36,6 +74,8 @@ export type ProductMock = {
   lowestPrice: string
   imageTone: 'warm' | 'cool' | 'ink' | 'accent'
   imageLabel: string
+  sessions?: SessionInstanceMock[]   // session-type only; 3–5 entries
+  validityDays?: number              // display in hero stats strip, e.g. 60
 }
 
 export type ProgramDetailMock = ProgramListItem & {
@@ -177,6 +217,69 @@ export const PROGRAM_DETAILS: Record<string, ProgramDetailMock> = {
         lowestPrice: '$28',
         imageTone: 'warm',
         imageLabel: 'BAG WORK · SAT',
+        validityDays: 60,
+        sessions: [
+          {
+            id: 'sess-p1-1-1',
+            product_id: 'prod-p1-1',
+            start_time: '2026-04-27T13:00:00Z',
+            end_time: '2026-04-27T14:30:00Z',
+            status: 'past',
+            is_active: false,
+            created_at: '2026-04-01T10:00:00Z',
+            coach: 'Coach Marcus',
+            taken: 14,
+            capacity: 14,
+          },
+          {
+            id: 'sess-p1-1-2',
+            product_id: 'prod-p1-1',
+            start_time: '2026-04-30T13:00:00Z',
+            end_time: '2026-04-30T14:30:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T10:00:00Z',
+            coach: 'Coach Marcus',
+            taken: 8,
+            capacity: 14,
+          },
+          {
+            id: 'sess-p1-1-3',
+            product_id: 'prod-p1-1',
+            start_time: '2026-05-02T13:00:00Z',
+            end_time: '2026-05-02T14:30:00Z',
+            status: 'full',
+            is_active: true,
+            created_at: '2026-04-01T10:00:00Z',
+            coach: 'Coach Marcus',
+            taken: 14,
+            capacity: 14,
+          },
+          {
+            id: 'sess-p1-1-4',
+            product_id: 'prod-p1-1',
+            start_time: '2026-05-07T13:00:00Z',
+            end_time: '2026-05-07T14:30:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T10:00:00Z',
+            coach: 'Coach Marcus',
+            taken: 3,
+            capacity: 14,
+          },
+          {
+            id: 'sess-p1-1-5',
+            product_id: 'prod-p1-1',
+            start_time: '2026-05-09T13:00:00Z',
+            end_time: '2026-05-09T14:30:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T10:00:00Z',
+            coach: 'Coach Marcus',
+            taken: 6,
+            capacity: 14,
+          },
+        ],
       },
       {
         id: 'prod-p1-2',
@@ -191,6 +294,45 @@ export const PROGRAM_DETAILS: Record<string, ProgramDetailMock> = {
         lowestPrice: '$32',
         imageTone: 'warm',
         imageLabel: 'PAD ROUNDS · FRI',
+        validityDays: 60,
+        sessions: [
+          {
+            id: 'sess-p1-2-1',
+            product_id: 'prod-p1-2',
+            start_time: '2026-04-25T00:00:00Z',
+            end_time: '2026-04-25T01:30:00Z',
+            status: 'past',
+            is_active: false,
+            created_at: '2026-04-01T10:00:00Z',
+            coach: 'Coach Ray',
+            taken: 10,
+            capacity: 10,
+          },
+          {
+            id: 'sess-p1-2-2',
+            product_id: 'prod-p1-2',
+            start_time: '2026-05-02T00:00:00Z',
+            end_time: '2026-05-02T01:30:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T10:00:00Z',
+            coach: 'Coach Ray',
+            taken: 5,
+            capacity: 10,
+          },
+          {
+            id: 'sess-p1-2-3',
+            product_id: 'prod-p1-2',
+            start_time: '2026-05-09T00:00:00Z',
+            end_time: '2026-05-09T01:30:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T10:00:00Z',
+            coach: 'Coach Ray',
+            taken: 2,
+            capacity: 10,
+          },
+        ],
       },
       {
         id: 'prod-p1-3',
@@ -224,6 +366,57 @@ export const PROGRAM_DETAILS: Record<string, ProgramDetailMock> = {
         lowestPrice: '€22',
         imageTone: 'cool',
         imageLabel: 'FLOW · MORNING',
+        validityDays: 45,
+        sessions: [
+          {
+            id: 'sess-p2-1-1',
+            product_id: 'prod-p2-1',
+            start_time: '2026-04-27T08:00:00Z',
+            end_time: '2026-04-27T09:00:00Z',
+            status: 'past',
+            is_active: false,
+            created_at: '2026-04-01T08:00:00Z',
+            coach: 'Ines',
+            taken: 12,
+            capacity: 12,
+          },
+          {
+            id: 'sess-p2-1-2',
+            product_id: 'prod-p2-1',
+            start_time: '2026-04-30T08:00:00Z',
+            end_time: '2026-04-30T09:00:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T08:00:00Z',
+            coach: 'Ines',
+            taken: 7,
+            capacity: 12,
+          },
+          {
+            id: 'sess-p2-1-3',
+            product_id: 'prod-p2-1',
+            start_time: '2026-05-03T08:00:00Z',
+            end_time: '2026-05-03T09:00:00Z',
+            status: 'full',
+            is_active: true,
+            created_at: '2026-04-01T08:00:00Z',
+            coach: 'Ines',
+            taken: 12,
+            capacity: 12,
+          },
+          {
+            id: 'sess-p2-1-4',
+            product_id: 'prod-p2-1',
+            start_time: '2026-05-05T08:00:00Z',
+            end_time: '2026-05-05T09:00:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T08:00:00Z',
+            coach: 'Ines',
+            taken: 4,
+            capacity: 12,
+          },
+        ],
       },
       {
         id: 'prod-p2-2',
@@ -257,6 +450,57 @@ export const PROGRAM_DETAILS: Record<string, ProgramDetailMock> = {
         lowestPrice: '€34',
         imageTone: 'ink',
         imageLabel: 'LIFT · BARBELL',
+        validityDays: 60,
+        sessions: [
+          {
+            id: 'sess-p3-1-1',
+            product_id: 'prod-p3-1',
+            start_time: '2026-04-27T17:00:00Z',
+            end_time: '2026-04-27T18:30:00Z',
+            status: 'past',
+            is_active: false,
+            created_at: '2026-04-01T09:00:00Z',
+            coach: 'Coach Stefan',
+            taken: 18,
+            capacity: 18,
+          },
+          {
+            id: 'sess-p3-1-2',
+            product_id: 'prod-p3-1',
+            start_time: '2026-04-29T17:00:00Z',
+            end_time: '2026-04-29T18:30:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T09:00:00Z',
+            coach: 'Coach Stefan',
+            taken: 11,
+            capacity: 18,
+          },
+          {
+            id: 'sess-p3-1-3',
+            product_id: 'prod-p3-1',
+            start_time: '2026-05-04T05:00:00Z',
+            end_time: '2026-05-04T06:30:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T09:00:00Z',
+            coach: 'Coach Lisa',
+            taken: 6,
+            capacity: 18,
+          },
+          {
+            id: 'sess-p3-1-4',
+            product_id: 'prod-p3-1',
+            start_time: '2026-05-06T17:00:00Z',
+            end_time: '2026-05-06T18:30:00Z',
+            status: 'full',
+            is_active: true,
+            created_at: '2026-04-01T09:00:00Z',
+            coach: 'Coach Stefan',
+            taken: 18,
+            capacity: 18,
+          },
+        ],
       },
       {
         id: 'prod-p3-2',
@@ -271,6 +515,45 @@ export const PROGRAM_DETAILS: Record<string, ProgramDetailMock> = {
         lowestPrice: '€18',
         imageTone: 'ink',
         imageLabel: 'CONDITIONING · SAT',
+        validityDays: 60,
+        sessions: [
+          {
+            id: 'sess-p3-2-1',
+            product_id: 'prod-p3-2',
+            start_time: '2026-04-25T08:00:00Z',
+            end_time: '2026-04-25T08:45:00Z',
+            status: 'past',
+            is_active: false,
+            created_at: '2026-04-01T09:00:00Z',
+            coach: 'Coach Lisa',
+            taken: 17,
+            capacity: 20,
+          },
+          {
+            id: 'sess-p3-2-2',
+            product_id: 'prod-p3-2',
+            start_time: '2026-05-02T08:00:00Z',
+            end_time: '2026-05-02T08:45:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T09:00:00Z',
+            coach: 'Coach Lisa',
+            taken: 9,
+            capacity: 20,
+          },
+          {
+            id: 'sess-p3-2-3',
+            product_id: 'prod-p3-2',
+            start_time: '2026-05-09T08:00:00Z',
+            end_time: '2026-05-09T08:45:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T09:00:00Z',
+            coach: 'Coach Lisa',
+            taken: 4,
+            capacity: 20,
+          },
+        ],
       },
       {
         id: 'prod-p3-3',
@@ -304,6 +587,57 @@ export const PROGRAM_DETAILS: Record<string, ProgramDetailMock> = {
         lowestPrice: '$19',
         imageTone: 'accent',
         imageLabel: 'HIIT · LIVE',
+        validityDays: 30,
+        sessions: [
+          {
+            id: 'sess-p4-1-1',
+            product_id: 'prod-p4-1',
+            start_time: '2026-04-27T14:00:00Z',
+            end_time: '2026-04-27T14:45:00Z',
+            status: 'past',
+            is_active: false,
+            created_at: '2026-04-01T12:00:00Z',
+            coach: 'Coach Priya',
+            taken: 28,
+            capacity: 30,
+          },
+          {
+            id: 'sess-p4-1-2',
+            product_id: 'prod-p4-1',
+            start_time: '2026-04-30T14:00:00Z',
+            end_time: '2026-04-30T14:45:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T12:00:00Z',
+            coach: 'Coach Priya',
+            taken: 14,
+            capacity: 30,
+          },
+          {
+            id: 'sess-p4-1-3',
+            product_id: 'prod-p4-1',
+            start_time: '2026-05-01T06:00:00Z',
+            end_time: '2026-05-01T06:45:00Z',
+            status: 'full',
+            is_active: true,
+            created_at: '2026-04-01T12:00:00Z',
+            coach: 'Coach Priya',
+            taken: 30,
+            capacity: 30,
+          },
+          {
+            id: 'sess-p4-1-4',
+            product_id: 'prod-p4-1',
+            start_time: '2026-05-04T14:00:00Z',
+            end_time: '2026-05-04T14:45:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T12:00:00Z',
+            coach: 'Coach Priya',
+            taken: 19,
+            capacity: 30,
+          },
+        ],
       },
       {
         id: 'prod-p4-2',
@@ -337,6 +671,57 @@ export const PROGRAM_DETAILS: Record<string, ProgramDetailMock> = {
         lowestPrice: '$32',
         imageTone: 'warm',
         imageLabel: 'TECHNIQUE · PADS',
+        validityDays: 60,
+        sessions: [
+          {
+            id: 'sess-p5-1-1',
+            product_id: 'prod-p5-1',
+            start_time: '2026-04-27T17:00:00Z',
+            end_time: '2026-04-27T18:30:00Z',
+            status: 'past',
+            is_active: false,
+            created_at: '2026-04-01T11:00:00Z',
+            coach: 'Coach Dani',
+            taken: 16,
+            capacity: 16,
+          },
+          {
+            id: 'sess-p5-1-2',
+            product_id: 'prod-p5-1',
+            start_time: '2026-04-29T17:00:00Z',
+            end_time: '2026-04-29T18:30:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T11:00:00Z',
+            coach: 'Coach Dani',
+            taken: 9,
+            capacity: 16,
+          },
+          {
+            id: 'sess-p5-1-3',
+            product_id: 'prod-p5-1',
+            start_time: '2026-05-01T17:00:00Z',
+            end_time: '2026-05-01T18:30:00Z',
+            status: 'full',
+            is_active: true,
+            created_at: '2026-04-01T11:00:00Z',
+            coach: 'Coach Dani',
+            taken: 16,
+            capacity: 16,
+          },
+          {
+            id: 'sess-p5-1-4',
+            product_id: 'prod-p5-1',
+            start_time: '2026-05-04T17:00:00Z',
+            end_time: '2026-05-04T18:30:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T11:00:00Z',
+            coach: 'Coach Dani',
+            taken: 5,
+            capacity: 16,
+          },
+        ],
       },
       {
         id: 'prod-p5-2',
@@ -351,6 +736,45 @@ export const PROGRAM_DETAILS: Record<string, ProgramDetailMock> = {
         lowestPrice: '$20',
         imageTone: 'warm',
         imageLabel: 'SPARRING · ADV',
+        validityDays: 60,
+        sessions: [
+          {
+            id: 'sess-p5-2-1',
+            product_id: 'prod-p5-2',
+            start_time: '2026-04-26T17:00:00Z',
+            end_time: '2026-04-26T18:30:00Z',
+            status: 'past',
+            is_active: false,
+            created_at: '2026-04-01T11:00:00Z',
+            coach: 'Coach Dani',
+            taken: 8,
+            capacity: 8,
+          },
+          {
+            id: 'sess-p5-2-2',
+            product_id: 'prod-p5-2',
+            start_time: '2026-05-03T17:00:00Z',
+            end_time: '2026-05-03T18:30:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T11:00:00Z',
+            coach: 'Coach Dani',
+            taken: 4,
+            capacity: 8,
+          },
+          {
+            id: 'sess-p5-2-3',
+            product_id: 'prod-p5-2',
+            start_time: '2026-05-10T17:00:00Z',
+            end_time: '2026-05-10T18:30:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T11:00:00Z',
+            coach: 'Coach Dani',
+            taken: 1,
+            capacity: 8,
+          },
+        ],
       },
       {
         id: 'prod-p5-3',
@@ -384,6 +808,57 @@ export const PROGRAM_DETAILS: Record<string, ProgramDetailMock> = {
         lowestPrice: '$24',
         imageTone: 'cool',
         imageLabel: 'SUNRISE · FLOW',
+        validityDays: 60,
+        sessions: [
+          {
+            id: 'sess-p6-1-1',
+            product_id: 'prod-p6-1',
+            start_time: '2026-04-27T22:00:00Z',
+            end_time: '2026-04-27T23:15:00Z',
+            status: 'past',
+            is_active: false,
+            created_at: '2026-04-01T06:00:00Z',
+            coach: 'Made Ayu',
+            taken: 12,
+            capacity: 12,
+          },
+          {
+            id: 'sess-p6-1-2',
+            product_id: 'prod-p6-1',
+            start_time: '2026-04-29T22:00:00Z',
+            end_time: '2026-04-29T23:15:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T06:00:00Z',
+            coach: 'Made Ayu',
+            taken: 8,
+            capacity: 12,
+          },
+          {
+            id: 'sess-p6-1-3',
+            product_id: 'prod-p6-1',
+            start_time: '2026-05-01T22:00:00Z',
+            end_time: '2026-05-01T23:15:00Z',
+            status: 'full',
+            is_active: true,
+            created_at: '2026-04-01T06:00:00Z',
+            coach: 'Made Ayu',
+            taken: 12,
+            capacity: 12,
+          },
+          {
+            id: 'sess-p6-1-4',
+            product_id: 'prod-p6-1',
+            start_time: '2026-05-04T22:00:00Z',
+            end_time: '2026-05-04T23:15:00Z',
+            status: 'open',
+            is_active: true,
+            created_at: '2026-04-01T06:00:00Z',
+            coach: 'Made Ayu',
+            taken: 5,
+            capacity: 12,
+          },
+        ],
       },
       {
         id: 'prod-p6-2',
@@ -400,3 +875,360 @@ export const PROGRAM_DETAILS: Record<string, ProgramDetailMock> = {
     ],
   },
 }
+
+// ─── Purchase packages mock data ──────────────────────────────────────────────
+
+export const PACKAGES: PackageMock[] = [
+  // ── p1: Eastside Boxing Club ─────────────────────────────────────────────
+  {
+    id: 'pkg-p1-1',
+    program_id: 'p1',
+    name: '10-Class Pass',
+    price: '$240',
+    status: 'active',
+    created_at: '2024-01-20T10:00:00Z',
+    entries: [
+      {
+        id: 'entry-p1-1-1',
+        package_id: 'pkg-p1-1',
+        product_id: 'prod-p1-1',
+        quantity: 10,
+        validity_rule: '60 days from purchase',
+      },
+      {
+        id: 'entry-p1-1-2',
+        package_id: 'pkg-p1-1',
+        product_id: 'prod-p1-2',
+        quantity: 5,
+        validity_rule: '60 days from purchase',
+      },
+    ],
+  },
+  {
+    id: 'pkg-p1-2',
+    program_id: 'p1',
+    name: 'Drop-In Single',
+    price: '$28',
+    status: 'active',
+    created_at: '2024-01-20T10:00:00Z',
+    entries: [
+      {
+        id: 'entry-p1-2-1',
+        package_id: 'pkg-p1-2',
+        product_id: 'prod-p1-1',
+        quantity: 1,
+        validity_rule: '60 days from purchase',
+      },
+    ],
+  },
+  {
+    id: 'pkg-p1-3',
+    program_id: 'p1',
+    name: 'Monthly Unlimited',
+    price: '$99',
+    status: 'active',
+    created_at: '2024-01-20T10:00:00Z',
+    entries: [
+      {
+        id: 'entry-p1-3-1',
+        package_id: 'pkg-p1-3',
+        product_id: 'prod-p1-1',
+        quantity: 999,
+        validity_rule: '30 days from purchase',
+      },
+      {
+        id: 'entry-p1-3-2',
+        package_id: 'pkg-p1-3',
+        product_id: 'prod-p1-2',
+        quantity: 999,
+        validity_rule: '30 days from purchase',
+      },
+    ],
+  },
+
+  // ── p2: Slow Flow with Ines ───────────────────────────────────────────────
+  {
+    id: 'pkg-p2-1',
+    program_id: 'p2',
+    name: '5-Class Pass',
+    price: '€95',
+    status: 'active',
+    created_at: '2024-03-05T08:00:00Z',
+    entries: [
+      {
+        id: 'entry-p2-1-1',
+        package_id: 'pkg-p2-1',
+        product_id: 'prod-p2-1',
+        quantity: 5,
+        validity_rule: '45 days from purchase',
+      },
+    ],
+  },
+  {
+    id: 'pkg-p2-2',
+    program_id: 'p2',
+    name: 'Single Drop-In',
+    price: '€22',
+    status: 'active',
+    created_at: '2024-03-05T08:00:00Z',
+    entries: [
+      {
+        id: 'entry-p2-2-1',
+        package_id: 'pkg-p2-2',
+        product_id: 'prod-p2-1',
+        quantity: 1,
+        validity_rule: '30 days from purchase',
+      },
+    ],
+  },
+  {
+    id: 'pkg-p2-3',
+    program_id: 'p2',
+    name: 'Monthly Unlimited',
+    price: '€75',
+    status: 'active',
+    created_at: '2024-03-05T08:00:00Z',
+    entries: [
+      {
+        id: 'entry-p2-3-1',
+        package_id: 'pkg-p2-3',
+        product_id: 'prod-p2-1',
+        quantity: 999,
+        validity_rule: '30 days from purchase',
+      },
+    ],
+  },
+
+  // ── p3: Strong Together ───────────────────────────────────────────────────
+  {
+    id: 'pkg-p3-1',
+    program_id: 'p3',
+    name: '12-Week Program',
+    price: '€299',
+    status: 'active',
+    created_at: '2024-02-15T09:00:00Z',
+    entries: [
+      {
+        id: 'entry-p3-1-1',
+        package_id: 'pkg-p3-1',
+        product_id: 'prod-p3-1',
+        quantity: 36,
+        validity_rule: '84 days from purchase',
+      },
+      {
+        id: 'entry-p3-1-2',
+        package_id: 'pkg-p3-1',
+        product_id: 'prod-p3-2',
+        quantity: 12,
+        validity_rule: '84 days from purchase',
+      },
+    ],
+  },
+  {
+    id: 'pkg-p3-2',
+    program_id: 'p3',
+    name: 'Drop-In Session',
+    price: '€34',
+    status: 'active',
+    created_at: '2024-02-15T09:00:00Z',
+    entries: [
+      {
+        id: 'entry-p3-2-1',
+        package_id: 'pkg-p3-2',
+        product_id: 'prod-p3-1',
+        quantity: 1,
+        validity_rule: '60 days from purchase',
+      },
+    ],
+  },
+  {
+    id: 'pkg-p3-3',
+    program_id: 'p3',
+    name: 'Conditioning Add-On (4×)',
+    price: '€64',
+    status: 'active',
+    created_at: '2024-02-15T09:00:00Z',
+    entries: [
+      {
+        id: 'entry-p3-3-1',
+        package_id: 'pkg-p3-3',
+        product_id: 'prod-p3-2',
+        quantity: 4,
+        validity_rule: '60 days from purchase',
+      },
+    ],
+  },
+
+  // ── p4: Sprint Lab ────────────────────────────────────────────────────────
+  {
+    id: 'pkg-p4-1',
+    program_id: 'p4',
+    name: 'Monthly Unlimited',
+    price: '$59',
+    status: 'active',
+    created_at: '2023-11-25T12:00:00Z',
+    entries: [
+      {
+        id: 'entry-p4-1-1',
+        package_id: 'pkg-p4-1',
+        product_id: 'prod-p4-1',
+        quantity: 999,
+        validity_rule: '30 days from purchase',
+      },
+    ],
+  },
+  {
+    id: 'pkg-p4-2',
+    program_id: 'p4',
+    name: '10-Session Pack',
+    price: '$175',
+    status: 'active',
+    created_at: '2023-11-25T12:00:00Z',
+    entries: [
+      {
+        id: 'entry-p4-2-1',
+        package_id: 'pkg-p4-2',
+        product_id: 'prod-p4-1',
+        quantity: 10,
+        validity_rule: '60 days from purchase',
+      },
+    ],
+  },
+  {
+    id: 'pkg-p4-3',
+    program_id: 'p4',
+    name: 'Single Session',
+    price: '$19',
+    status: 'active',
+    created_at: '2023-11-25T12:00:00Z',
+    entries: [
+      {
+        id: 'entry-p4-3-1',
+        package_id: 'pkg-p4-3',
+        product_id: 'prod-p4-1',
+        quantity: 1,
+        validity_rule: '30 days from purchase',
+      },
+    ],
+  },
+
+  // ── p5: Roundhouse Muay Thai ──────────────────────────────────────────────
+  {
+    id: 'pkg-p5-1',
+    program_id: 'p5',
+    name: '10-Class Pass',
+    price: '$295',
+    status: 'active',
+    created_at: '2024-04-05T11:00:00Z',
+    entries: [
+      {
+        id: 'entry-p5-1-1',
+        package_id: 'pkg-p5-1',
+        product_id: 'prod-p5-1',
+        quantity: 10,
+        validity_rule: '60 days from purchase',
+      },
+    ],
+  },
+  {
+    id: 'pkg-p5-2',
+    program_id: 'p5',
+    name: 'Monthly Unlimited',
+    price: '$119',
+    status: 'active',
+    created_at: '2024-04-05T11:00:00Z',
+    entries: [
+      {
+        id: 'entry-p5-2-1',
+        package_id: 'pkg-p5-2',
+        product_id: 'prod-p5-1',
+        quantity: 999,
+        validity_rule: '30 days from purchase',
+      },
+      {
+        id: 'entry-p5-2-2',
+        package_id: 'pkg-p5-2',
+        product_id: 'prod-p5-2',
+        quantity: 4,
+        validity_rule: '30 days from purchase',
+      },
+    ],
+  },
+  {
+    id: 'pkg-p5-3',
+    program_id: 'p5',
+    name: 'Drop-In + Gear Rental',
+    price: '$37',
+    status: 'active',
+    created_at: '2024-04-05T11:00:00Z',
+    entries: [
+      {
+        id: 'entry-p5-3-1',
+        package_id: 'pkg-p5-3',
+        product_id: 'prod-p5-1',
+        quantity: 1,
+        validity_rule: '60 days from purchase',
+      },
+      {
+        id: 'entry-p5-3-2',
+        package_id: 'pkg-p5-3',
+        product_id: 'prod-p5-3',
+        quantity: 1,
+        validity_rule: '60 days from purchase',
+      },
+    ],
+  },
+
+  // ── p6: Sunrise Vinyasa ───────────────────────────────────────────────────
+  {
+    id: 'pkg-p6-1',
+    program_id: 'p6',
+    name: 'Week Pass',
+    price: '$120',
+    status: 'active',
+    created_at: '2024-05-10T06:00:00Z',
+    entries: [
+      {
+        id: 'entry-p6-1-1',
+        package_id: 'pkg-p6-1',
+        product_id: 'prod-p6-1',
+        quantity: 999,
+        validity_rule: '7 days from purchase',
+      },
+    ],
+  },
+  {
+    id: 'pkg-p6-2',
+    program_id: 'p6',
+    name: '5-Session Pack',
+    price: '$110',
+    status: 'active',
+    created_at: '2024-05-10T06:00:00Z',
+    entries: [
+      {
+        id: 'entry-p6-2-1',
+        package_id: 'pkg-p6-2',
+        product_id: 'prod-p6-1',
+        quantity: 5,
+        validity_rule: '60 days from purchase',
+      },
+    ],
+  },
+  {
+    id: 'pkg-p6-3',
+    program_id: 'p6',
+    name: 'Single Session',
+    price: '$24',
+    status: 'active',
+    created_at: '2024-05-10T06:00:00Z',
+    entries: [
+      {
+        id: 'entry-p6-3-1',
+        package_id: 'pkg-p6-3',
+        product_id: 'prod-p6-1',
+        quantity: 1,
+        validity_rule: '60 days from purchase',
+      },
+    ],
+  },
+]
