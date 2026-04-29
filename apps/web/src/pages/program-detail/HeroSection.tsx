@@ -275,7 +275,7 @@ export function HeroSection({ program: p }: HeroSectionProps) {
             <StatCell label="Sessions / wk" value={String(p.sessionsPerWeek)} sub="Across all products" />
           )}
           <StatCell label="From" value={p.lowestPrice} sub="Per session" />
-          <StatCell label="Timezone" value={p.timezone.split('/')[1]?.replace('_', ' ') ?? p.timezone} sub={p.timezone} />
+          <StatCell label="Timezone" value={p.timezone.split('/').at(-1)?.replace(/_/g, ' ') ?? p.timezone} sub={p.timezone} />
         </div>
 
         <div style={{ marginTop: 28 }}>
