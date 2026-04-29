@@ -1,4 +1,4 @@
-import type { PackageMock, ProgramListItem } from '../../data/programs'
+import type { PackageMock, ProgramDetailMock } from '../../data/programs'
 
 const TONE_MAP = {
   warm: { bg: 'var(--placeholder-warm)', stripe: 'var(--placeholder-warm-stripe)' },
@@ -9,11 +9,12 @@ const TONE_MAP = {
 
 interface PackageSummaryProps {
   pkg: PackageMock
-  program: ProgramListItem
+  program: ProgramDetailMock
 }
 
 export function PackageSummary({ pkg, program }: PackageSummaryProps) {
-  const tone = TONE_MAP[program.imageTone]
+  const firstProduct = program.products.find(p => p.id === pkg.entries[0]?.product_id)
+  const tone = TONE_MAP[(firstProduct?.imageTone ?? program.imageTone)]
 
   // Split package name to italicize last word
   const words = pkg.name.split(' ')
