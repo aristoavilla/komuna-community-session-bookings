@@ -1,19 +1,19 @@
 import type { PackageMock, ProgramListItem } from '../../data/programs'
 
+const TONE_MAP = {
+  warm: { bg: 'var(--placeholder-warm)', stripe: 'var(--placeholder-warm-stripe)' },
+  cool: { bg: 'var(--placeholder-cool)', stripe: 'var(--placeholder-cool-stripe)' },
+  ink: { bg: 'var(--ink-1)', stripe: 'var(--ink-2)' },
+  accent: { bg: 'var(--accent-soft)', stripe: 'var(--accent-soft-stripe)' },
+}
+
 interface PackageSummaryProps {
   pkg: PackageMock
   program: ProgramListItem
 }
 
 export function PackageSummary({ pkg, program }: PackageSummaryProps) {
-  // Tone-based color mappings
-  const toneMap = {
-    warm: { bg: '#f5ede8', stripe: '#e8d8cf' },
-    cool: { bg: '#e8eff5', stripe: '#d0dde8' },
-    ink: { bg: '#e8e8ec', stripe: '#d4d4da' },
-    accent: { bg: '#f5ece8', stripe: '#e8d8cf' },
-  }
-  const tone = toneMap[program.imageTone]
+  const tone = TONE_MAP[program.imageTone]
 
   // Split package name to italicize last word
   const words = pkg.name.split(' ')
@@ -53,8 +53,8 @@ export function PackageSummary({ pkg, program }: PackageSummaryProps) {
           alignItems: 'center',
           padding: '4px 10px',
           borderRadius: 999,
-          background: 'color-mix(in srgb, var(--accent) 12%, transparent)',
-          color: 'var(--accent)',
+          background: 'var(--accent-soft)',
+          color: 'var(--accent-ink)',
           fontSize: 11,
           fontFamily: 'var(--font-sans, sans-serif)',
           letterSpacing: '0.04em',
@@ -87,33 +87,32 @@ export function PackageSummary({ pkg, program }: PackageSummaryProps) {
         {pkg.entries.map((entry) => {
           const quantityDisplay = entry.quantity >= 999 ? '∞' : String(entry.quantity)
           return (
-            <div key={entry.id}>
+            <div
+              key={entry.id}
+              style={{
+                borderTop: '1px solid var(--rule)',
+                paddingTop: 14,
+                paddingBottom: 14,
+              }}
+            >
               <div
                 style={{
-                  borderTop: '1px solid var(--rule)',
-                  paddingTop: 14,
-                  paddingBottom: 14,
+                  fontSize: 14,
+                  fontFamily: 'var(--font-sans, sans-serif)',
+                  color: 'var(--ink-1)',
                 }}
               >
-                <div
-                  style={{
-                    fontSize: 14,
-                    fontFamily: 'var(--font-sans, sans-serif)',
-                    color: 'var(--ink-1)',
-                  }}
-                >
-                  {entry.product_name} ×{quantityDisplay}
-                </div>
-                <div
-                  style={{
-                    fontSize: 12,
-                    fontFamily: 'var(--font-mono, monospace)',
-                    color: 'var(--ink-3)',
-                    marginTop: 4,
-                  }}
-                >
-                  {entry.validity_rule}
-                </div>
+                {entry.product_name} ×{quantityDisplay}
+              </div>
+              <div
+                style={{
+                  fontSize: 12,
+                  fontFamily: 'var(--font-mono, monospace)',
+                  color: 'var(--ink-3)',
+                  marginTop: 4,
+                }}
+              >
+                {entry.validity_rule}
               </div>
             </div>
           )
