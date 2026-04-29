@@ -156,8 +156,7 @@ function SessionRow({ session: s, isFirst, timezone }: SessionRowProps) {
           </button>
         )}
         {s.status === 'past' && (
-          <button
-            type="button"
+          <span
             style={{
               padding: '8px 14px',
               background: 'transparent',
@@ -165,12 +164,11 @@ function SessionRow({ session: s, isFirst, timezone }: SessionRowProps) {
               border: 'none',
               borderRadius: 8,
               fontSize: 13,
-              cursor: 'default',
               fontFamily: 'var(--font-sans, sans-serif)',
             }}
           >
             Past
-          </button>
+          </span>
         )}
       </div>
     </div>

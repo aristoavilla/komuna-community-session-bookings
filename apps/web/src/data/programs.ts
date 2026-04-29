@@ -7,6 +7,9 @@ export type PackageEntryMock = {
   product_id: string
   quantity: number
   validity_rule: string   // display string, e.g. "60 days from purchase"
+
+  // UI-only
+  product_name: string
 }
 
 export type PackageMock = {
@@ -896,6 +899,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p1-1',
         quantity: 10,
         validity_rule: '60 days from purchase',
+        product_name: 'Saturday Bag Work',
       },
       {
         id: 'entry-p1-1-2',
@@ -903,6 +907,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p1-2',
         quantity: 5,
         validity_rule: '60 days from purchase',
+        product_name: 'Friday Pad Rounds',
       },
     ],
   },
@@ -920,6 +925,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p1-1',
         quantity: 1,
         validity_rule: '60 days from purchase',
+        product_name: 'Saturday Bag Work',
       },
     ],
   },
@@ -937,6 +943,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p1-1',
         quantity: UNLIMITED_QUANTITY,
         validity_rule: '30 days from purchase',
+        product_name: 'Saturday Bag Work',
       },
       {
         id: 'entry-p1-3-2',
@@ -944,6 +951,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p1-2',
         quantity: UNLIMITED_QUANTITY,
         validity_rule: '30 days from purchase',
+        product_name: 'Friday Pad Rounds',
       },
     ],
   },
@@ -963,6 +971,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p2-1',
         quantity: 5,
         validity_rule: '45 days from purchase',
+        product_name: 'Morning Vinyasa',
       },
     ],
   },
@@ -980,6 +989,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p2-1',
         quantity: 1,
         validity_rule: '30 days from purchase',
+        product_name: 'Morning Vinyasa',
       },
     ],
   },
@@ -997,6 +1007,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p2-1',
         quantity: UNLIMITED_QUANTITY,
         validity_rule: '30 days from purchase',
+        product_name: 'Morning Vinyasa',
       },
     ],
   },
@@ -1016,6 +1027,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p3-1',
         quantity: 36,
         validity_rule: '84 days from purchase',
+        product_name: 'Barbell Fundamentals',
       },
       {
         id: 'entry-p3-1-2',
@@ -1023,6 +1035,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p3-2',
         quantity: 12,
         validity_rule: '84 days from purchase',
+        product_name: 'Saturday Conditioning',
       },
     ],
   },
@@ -1040,6 +1053,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p3-1',
         quantity: 1,
         validity_rule: '60 days from purchase',
+        product_name: 'Barbell Fundamentals',
       },
     ],
   },
@@ -1057,6 +1071,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p3-2',
         quantity: 4,
         validity_rule: '60 days from purchase',
+        product_name: 'Saturday Conditioning',
       },
     ],
   },
@@ -1076,6 +1091,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p4-1',
         quantity: UNLIMITED_QUANTITY,
         validity_rule: '30 days from purchase',
+        product_name: 'Live HIIT Session',
       },
     ],
   },
@@ -1093,6 +1109,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p4-1',
         quantity: 10,
         validity_rule: '60 days from purchase',
+        product_name: 'Live HIIT Session',
       },
     ],
   },
@@ -1110,6 +1127,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p4-1',
         quantity: 1,
         validity_rule: '30 days from purchase',
+        product_name: 'Live HIIT Session',
       },
     ],
   },
@@ -1129,6 +1147,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p5-1',
         quantity: 10,
         validity_rule: '60 days from purchase',
+        product_name: 'Technique Class',
       },
     ],
   },
@@ -1146,6 +1165,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p5-1',
         quantity: UNLIMITED_QUANTITY,
         validity_rule: '30 days from purchase',
+        product_name: 'Technique Class',
       },
       {
         id: 'entry-p5-2-2',
@@ -1153,6 +1173,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p5-2',
         quantity: 4,
         validity_rule: '30 days from purchase',
+        product_name: 'Sparring (Advanced)',
       },
     ],
   },
@@ -1170,6 +1191,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p5-1',
         quantity: 1,
         validity_rule: '60 days from purchase',
+        product_name: 'Technique Class',
       },
       {
         id: 'entry-p5-3-2',
@@ -1177,6 +1199,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p5-3',
         quantity: 1,
         validity_rule: '60 days from purchase',
+        product_name: 'Gear Rental Pass',
       },
     ],
   },
@@ -1196,6 +1219,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p6-1',
         quantity: UNLIMITED_QUANTITY,
         validity_rule: '7 days from purchase',
+        product_name: 'Sunrise Flow',
       },
     ],
   },
@@ -1213,6 +1237,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p6-1',
         quantity: 5,
         validity_rule: '60 days from purchase',
+        product_name: 'Sunrise Flow',
       },
     ],
   },
@@ -1230,6 +1255,7 @@ export const PACKAGES: PackageMock[] = [
         product_id: 'prod-p6-1',
         quantity: 1,
         validity_rule: '60 days from purchase',
+        product_name: 'Sunrise Flow',
       },
     ],
   },

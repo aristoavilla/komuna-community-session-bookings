@@ -7,6 +7,8 @@ interface PackagesSectionProps {
 }
 
 export function PackagesSection({ packages, programId }: PackagesSectionProps) {
+  if (packages.length === 0) return null
+
   return (
     <section style={{ padding: '56px 64px 80px' }}>
       <div>

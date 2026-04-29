@@ -68,7 +68,7 @@ export function PackageCard({ pkg, programId }: PackageCardProps) {
                   fontFamily: 'var(--font-sans, sans-serif)',
                 }}
               >
-                {entry.product_id} · ×{quantityDisplay}
+                {entry.product_name} · ×{quantityDisplay}
               </div>
               <div
                 style={{
