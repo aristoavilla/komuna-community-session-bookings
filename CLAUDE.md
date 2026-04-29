@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## ERD — Mandatory Schema Reference
+
+The file `mermaid-diagram.png` at the project root is the canonical database schema (ERD). **Read it before implementing any feature that touches data types or mock data.** All TypeScript types for entities (Program, Product, Voucher, Session, etc.) must include every field present in the corresponding ERD table. You may add extra fields for UI or frontend needs, but you must not omit any ERD field.
+
 ## Project Overview
 
 Komuna is a multi-tenant platform for session-based services (gyms, yoga studios, coaching). The central abstraction is a **Program** (tenant) that sells **Purchase Packages** which grant **Vouchers** that members **Claim** against scheduled **Sessions** or simple redeemable products.
