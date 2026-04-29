@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { DiscoveryPage } from './pages/DiscoveryPage'
 import { ProgramDetailPage } from './pages/ProgramDetailPage'
 import { ProductDetailPage } from './pages/ProductDetailPage'
+import { CheckoutPage } from './pages/CheckoutPage'
 
 export default function App() {
   return (
@@ -9,6 +10,7 @@ export default function App() {
       <Route path="/" element={<DiscoveryPage />} />
       <Route path="/programs/:id" element={<ProgramDetailPage />} />
       <Route path="/programs/:id/products/:productId" element={<ProductDetailPage />} />
+      <Route path="/programs/:id/packages/:packageId/checkout" element={<CheckoutPage />} />
     </Routes>
   )
 }
