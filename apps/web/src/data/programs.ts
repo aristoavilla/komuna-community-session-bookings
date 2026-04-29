@@ -878,6 +878,8 @@ export const PROGRAM_DETAILS: Record<string, ProgramDetailMock> = {
 
 // ─── Purchase packages mock data ──────────────────────────────────────────────
 
+const UNLIMITED_QUANTITY = 999 // sentinel for "unlimited"; rendered as "∞" in UI
+
 export const PACKAGES: PackageMock[] = [
   // ── p1: Eastside Boxing Club ─────────────────────────────────────────────
   {
@@ -933,14 +935,14 @@ export const PACKAGES: PackageMock[] = [
         id: 'entry-p1-3-1',
         package_id: 'pkg-p1-3',
         product_id: 'prod-p1-1',
-        quantity: 999,
+        quantity: UNLIMITED_QUANTITY,
         validity_rule: '30 days from purchase',
       },
       {
         id: 'entry-p1-3-2',
         package_id: 'pkg-p1-3',
         product_id: 'prod-p1-2',
-        quantity: 999,
+        quantity: UNLIMITED_QUANTITY,
         validity_rule: '30 days from purchase',
       },
     ],
@@ -993,7 +995,7 @@ export const PACKAGES: PackageMock[] = [
         id: 'entry-p2-3-1',
         package_id: 'pkg-p2-3',
         product_id: 'prod-p2-1',
-        quantity: 999,
+        quantity: UNLIMITED_QUANTITY,
         validity_rule: '30 days from purchase',
       },
     ],
@@ -1072,7 +1074,7 @@ export const PACKAGES: PackageMock[] = [
         id: 'entry-p4-1-1',
         package_id: 'pkg-p4-1',
         product_id: 'prod-p4-1',
-        quantity: 999,
+        quantity: UNLIMITED_QUANTITY,
         validity_rule: '30 days from purchase',
       },
     ],
@@ -1142,7 +1144,7 @@ export const PACKAGES: PackageMock[] = [
         id: 'entry-p5-2-1',
         package_id: 'pkg-p5-2',
         product_id: 'prod-p5-1',
-        quantity: 999,
+        quantity: UNLIMITED_QUANTITY,
         validity_rule: '30 days from purchase',
       },
       {
@@ -1192,7 +1194,7 @@ export const PACKAGES: PackageMock[] = [
         id: 'entry-p6-1-1',
         package_id: 'pkg-p6-1',
         product_id: 'prod-p6-1',
-        quantity: 999,
+        quantity: UNLIMITED_QUANTITY,
         validity_rule: '7 days from purchase',
       },
     ],
