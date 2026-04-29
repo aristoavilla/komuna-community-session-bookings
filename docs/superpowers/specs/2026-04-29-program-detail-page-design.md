@@ -27,34 +27,56 @@ Implement `ProgramDetailPage` at `/programs/:id` as the second page in the membe
 
 ## Mock Data
 
-Add to `apps/web/src/data/programs.ts`:
+All types must include every field present in the ERD. UI-only fields (for the frontend) may be added but no ERD field may be omitted.
 
-### `ProductItem` type
+### ERD reference (relevant tables)
+
+| Table | Canonical fields |
+|---|---|
+| PROGRAM | `id, name, description, visibility, timezone, created_at` |
+| PRODUCT | `id, program_id, name, description, type, status, created_at` |
+| PURCHASE_PACKAGE | `id, program_id, name, price, status, created_at` |
+| PACKAGE_ENTRY | `id, package_id, product_id, quantity, validity_rule` |
+
+### `ProductMock` type
+Extends the PRODUCT table fields, adds UI-only extras:
 ```ts
-type ProductItem = {
+export type ProductMock = {
+  // ERD fields (PRODUCT table)
   id: string
+  program_id: string
   name: string
   description: string
   type: 'session' | 'simple'
-  sessionsPerWeek?: number   // session-type only
-  lowestPrice: string
-  imageTone: ProgramListItem['imageTone']
+  status: 'active' | 'archived'
+  created_at: string        // ISO-8601
+
+  // UI-only extras (not in ERD, safe to add)
+  capacity?: number         // session-type only
+  sessionsPerWeek?: number  // session-type only
+  lowestPrice: string       // derived from packages for display
+  imageTone: 'warm' | 'cool' | 'ink' | 'accent'
   imageLabel: string
 }
 ```
 
-### `ProgramDetail` type
+### `ProgramDetailMock` type
+Extends the existing `ProgramListItem` (which already carries all PROGRAM fields) with a `products` array and a longer description. The existing `ProgramListItem` already has `id, name, description, visibility, timezone` from the ERD; `location`, `category`, `rating`, `sessionsPerWeek`, `imageTone`, `imageLabel` are UI-only additions that remain.
+
 ```ts
-type ProgramDetail = ProgramListItem & {
-  longDescription: string
-  products: ProductItem[]
+export type ProgramDetailMock = ProgramListItem & {
+  created_at: string           // ERD field missing from ProgramListItem — add it
+  longDescription: string      // UI-only: expanded copy for the detail page
+  products: ProductMock[]
 }
 ```
 
+**Also update `ProgramListItem`** to add the one missing ERD field: `created_at: string`.
+
 ### `PROGRAM_DETAILS` map
-A `Record<string, ProgramDetail>` keyed by program id (`p1`–`p6`). Each program gets 2–3 products — at least one `session` type and one `simple` type per program. Example for `p1` (Eastside Boxing Club):
-- Saturday Bag Work (session, 2/wk, $28)
-- Friday Pad Rounds (session, 1/wk, $32)
+A `Record<string, ProgramDetailMock>` keyed by program id (`p1`–`p6`). Each program gets 2–3 products — at least one `session` and one `simple` per program. Example for `p1` (Eastside Boxing Club):
+- Saturday Bag Work (session, capacity 14, 2/wk, $28)
+- Friday Pad Rounds (session, capacity 10, 1/wk, $32)
 - Drop-in Pass (simple, $28)
 
 ---
