@@ -23,7 +23,7 @@ This file is the single source of truth for frontend page progress. Each page is
 
 - [x] **DiscoveryPage** — `/` — Hero search, category filter, program grid. Entry point for all visitors.
 
-- [ ] **ProgramDetailPage** — `/programs/:id` — Program info (name, description, location, timezone, visibility badge), products list, join button (one-click for public, request for need-approval, invite-only gate). Links to each ProductDetailPage.
+- [x] **ProgramDetailPage** — `/programs/:id` — Program info (name, description, location, timezone, visibility badge), products list, join button (one-click for public, request for need-approval, invite-only gate). Links to each ProductDetailPage.
 
 - [ ] **ProductDetailPage** — `/programs/:id/products/:productId` — Product name/description, type badge (session/simple), upcoming sessions preview (next 3–5), list of purchase packages that include this product with prices and validity rules. Book or buy CTA.
 
