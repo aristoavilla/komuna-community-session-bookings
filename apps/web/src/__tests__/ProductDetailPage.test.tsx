@@ -19,6 +19,7 @@ describe('ProductDetailPage', () => {
     renderAtPath('/programs/p1/products/prod-p1-1')
     const product = PROGRAM_DETAILS['p1'].products.find((p) => p.id === 'prod-p1-1')!
     expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/saturday\s*bag\s*work/i)
     expect(screen.getByText(new RegExp(product.description, 'i'))).toBeInTheDocument()
   })
 
@@ -30,6 +31,7 @@ describe('ProductDetailPage', () => {
   it('Shows `simple` type badge for a simple-type product', () => {
     renderAtPath('/programs/p1/products/prod-p1-3')
     expect(screen.getByText('Simple product')).toBeInTheDocument()
+    expect(screen.queryByText(/session product/i)).toBeNull()
   })
 
   it('Renders the sessions section for a session-type product', () => {
@@ -46,7 +48,7 @@ describe('ProductDetailPage', () => {
     renderAtPath('/programs/p1/products/prod-p1-1')
     const product = PROGRAM_DETAILS['p1'].products.find((p) => p.id === 'prod-p1-1')!
     const coachName = product.sessions![0].coach
-    expect(screen.getAllByText(new RegExp(coachName, 'i')).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(new RegExp(`with ${coachName}`, 'i'))[0]).toBeInTheDocument()
   })
 
   it('Shows "Join waitlist" button for a full session', () => {
@@ -56,10 +58,11 @@ describe('ProductDetailPage', () => {
 
   it('Renders the packages section with correct package names', () => {
     renderAtPath('/programs/p1/products/prod-p1-1')
+    const product = PROGRAM_DETAILS['p1'].products.find((p) => p.id === 'prod-p1-1')!
     const relevantPackages = PACKAGES.filter(
       (pkg) =>
         pkg.program_id === 'p1' &&
-        pkg.entries.some((e) => e.product_id === 'prod-p1-1')
+        pkg.entries.some((e) => e.product_id === product.id)
     )
     for (const pkg of relevantPackages) {
       expect(screen.getByText(pkg.name)).toBeInTheDocument()
