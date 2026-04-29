@@ -59,7 +59,6 @@ export function ProgramCard({ program: p }: { program: ProgramListItem }) {
           overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
-          cursor: 'pointer',
         }}
       >
         <div style={{ position: 'relative' }}>
