@@ -20,17 +20,20 @@ export function OrderSummaryCard({ pkg, onPay }: OrderSummaryCardProps) {
   const fee = Math.max(amount * SERVICE_FEE_CONFIG.percentage, SERVICE_FEE_CONFIG.minimum)
   const total = amount + fee
 
-  // Extract currency symbol from pkg.price
-  const currencyMatch = pkg.price.match(/[^\d.]/);
-  const symbol = currencyMatch ? currencyMatch[0] : ''
+  // Extract currency symbol from pkg.price (everything before first digit)
+  const symbol = pkg.price.replace(/[\d.,\s].*$/, '')
 
   const formatPrice = (value: number) => `${symbol}${value.toFixed(2)}`
 
   const handlePay = async () => {
     setState('paying')
     const payFn = onPay ?? defaultOnPay
-    const result = await payFn()
-    setState(result === 'success' ? 'success' : 'failure')
+    try {
+      const result = await payFn()
+      setState(result === 'success' ? 'success' : 'failure')
+    } catch {
+      setState('failure')
+    }
   }
 
   return (
@@ -44,8 +47,6 @@ export function OrderSummaryCard({ pkg, onPay }: OrderSummaryCardProps) {
         background: 'var(--paper-1)',
       }}
     >
-      <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
-
       {state === 'idle' && (
         <>
           {/* Section label */}
