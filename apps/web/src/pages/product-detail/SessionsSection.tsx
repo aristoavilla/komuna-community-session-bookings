@@ -3,16 +3,17 @@ import type { SessionInstanceMock } from '../../data/programs'
 interface SessionRowProps {
   session: SessionInstanceMock
   isFirst: boolean
+  timezone: string
 }
 
-function SessionRow({ session: s, isFirst }: SessionRowProps) {
+function SessionRow({ session: s, isFirst, timezone }: SessionRowProps) {
   const start = new Date(s.start_time)
   const end = new Date(s.end_time)
 
-  const dayOfWeek = start.toLocaleDateString('en-US', { weekday: 'short' })
-  const dayOfMonth = start.getDate()
+  const dayOfWeek = start.toLocaleDateString('en-US', { weekday: 'short', timeZone: timezone })
+  const dayOfMonth = Number(start.toLocaleDateString('en-US', { day: 'numeric', timeZone: timezone }))
 
-  const timeRange = `${start.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })} – ${end.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`
+  const timeRange = `${start.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: timezone })} – ${end.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: timezone })}`
 
   const durationMs = end.getTime() - start.getTime()
   const durationMin = Math.round(durationMs / 60000)
@@ -241,7 +242,7 @@ export function SessionsSection({ sessions, timezone }: SessionsSectionProps) {
         }}
       >
         {sessions.map((session, i) => (
-          <SessionRow key={session.id} session={session} isFirst={i === 0} />
+          <SessionRow key={session.id} session={session} isFirst={i === 0} timezone={timezone} />
         ))}
       </div>
     </section>

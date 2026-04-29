@@ -66,27 +66,10 @@ export function HeroSection({ product: p, program }: HeroSectionProps) {
             aspectRatio: '4 / 5',
             background: `repeating-linear-gradient(135deg, ${t.bg} 0 14px, ${t.stripe} 14px 15px)`,
             color: t.fg,
-            display: 'flex',
-            alignItems: 'flex-end',
-            padding: 14,
             borderRadius: 4,
             overflow: 'hidden',
           }}
-        >
-          <span
-            style={{
-              background: t.bg,
-              padding: '3px 7px',
-              border: `1px solid ${t.stripe}`,
-              fontFamily: 'var(--font-mono, monospace)',
-              fontSize: 11,
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
-            }}
-          >
-            {p.imageLabel}
-          </span>
-        </div>
+        />
 
         <div
           style={{
@@ -186,34 +169,68 @@ export function HeroSection({ product: p, program }: HeroSectionProps) {
           </p>
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            gap: 24,
-            padding: '28px 0',
-            borderTop: '1px solid var(--rule)',
-            borderBottom: '1px solid var(--rule)',
-            marginTop: 36,
-          }}
-        >
-          {p.type === 'session' ? (
-            <>
-              <StatCell label="Per session" value={p.lowestPrice} sub="per session" />
-              <StatCell label="Capacity" value={String(p.capacity ?? '—')} sub="people" />
-              <StatCell label="Sessions / wk" value={String(p.sessionsPerWeek ?? '—')} sub="per week" />
-              <StatCell label="Voucher valid" value={String(p.validityDays ?? '—')} sub="days" />
-            </>
-          ) : (
-            <>
-              <StatCell label="Price" value={p.lowestPrice} sub="" />
-              <StatCell label="Voucher valid" value={String(p.validityDays ?? '—')} sub="days" />
-            </>
-          )}
-        </div>
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              gap: 24,
+              padding: '28px 0',
+              borderTop: '1px solid var(--rule)',
+              borderBottom: '1px solid var(--rule)',
+            }}
+          >
+            {p.type === 'session' ? (
+              <>
+                <StatCell label="Per session" value={p.lowestPrice} sub="per session" />
+                <StatCell label="Capacity" value={String(p.capacity ?? '—')} sub="people" />
+                <StatCell label="Sessions / wk" value={String(p.sessionsPerWeek ?? '—')} sub="per week" />
+                <StatCell label="Voucher valid" value={String(p.validityDays ?? '—')} sub="days" />
+              </>
+            ) : (
+              <>
+                <StatCell label="Price" value={p.lowestPrice} sub="" />
+                <StatCell label="Voucher valid" value={String(p.validityDays ?? '—')} sub="days" />
+              </>
+            )}
+          </div>
 
-        <div style={{ marginTop: 28, display: 'flex', gap: 12 }}>
-          {p.type === 'session' ? (
-            <>
+          <div style={{ marginTop: 28, display: 'flex', gap: 12 }}>
+            {p.type === 'session' ? (
+              <>
+                <button
+                  type="button"
+                  style={{
+                    padding: '14px 24px',
+                    background: 'var(--accent)',
+                    color: 'var(--paper-1)',
+                    border: 0,
+                    borderRadius: 10,
+                    fontSize: 15,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    fontFamily: 'var(--font-sans, sans-serif)',
+                  }}
+                >
+                  Reserve a session →
+                </button>
+                <button
+                  type="button"
+                  style={{
+                    padding: '14px 24px',
+                    background: 'transparent',
+                    color: 'var(--ink-1)',
+                    border: '1px solid var(--ink-1)',
+                    borderRadius: 10,
+                    fontSize: 15,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    fontFamily: 'var(--font-sans, sans-serif)',
+                  }}
+                >
+                  Buy a package →
+                </button>
+              </>
+            ) : (
               <button
                 type="button"
                 style={{
@@ -228,43 +245,10 @@ export function HeroSection({ product: p, program }: HeroSectionProps) {
                   fontFamily: 'var(--font-sans, sans-serif)',
                 }}
               >
-                Reserve a session →
+                Get this product →
               </button>
-              <button
-                type="button"
-                style={{
-                  padding: '14px 24px',
-                  background: 'transparent',
-                  color: 'var(--ink-1)',
-                  border: '1px solid var(--ink-1)',
-                  borderRadius: 10,
-                  fontSize: 15,
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  fontFamily: 'var(--font-sans, sans-serif)',
-                }}
-              >
-                Buy a package →
-              </button>
-            </>
-          ) : (
-            <button
-              type="button"
-              style={{
-                padding: '14px 24px',
-                background: 'var(--accent)',
-                color: 'var(--paper-1)',
-                border: 0,
-                borderRadius: 10,
-                fontSize: 15,
-                fontWeight: 600,
-                cursor: 'pointer',
-                fontFamily: 'var(--font-sans, sans-serif)',
-              }}
-            >
-              Get this product →
-            </button>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </section>
