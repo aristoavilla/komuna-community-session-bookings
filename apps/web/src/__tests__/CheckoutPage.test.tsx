@@ -43,7 +43,7 @@ describe('CheckoutPage', () => {
   it('Renders validity rule for each entry', () => {
     renderAtPath('/programs/p1/packages/pkg-p1-1/checkout')
     const validityItems = screen.getAllByText(/60 days from purchase/i)
-    expect(validityItems.length).toBeGreaterThan(0)
+    expect(validityItems.length).toBe(2)
   })
 
   it('Shows correct base price from package data', () => {
@@ -70,14 +70,6 @@ describe('CheckoutPage', () => {
   })
 
   describe('OrderSummaryCard interactions', () => {
-    beforeEach(() => {
-      // no fake timers needed — we inject a never-resolving promise for paying state
-    })
-
-    afterEach(() => {
-      // cleanup is handled by @testing-library/react automatically
-    })
-
     it('Clicking "Pay with Xendit" transitions to paying state', async () => {
       // Inject a never-resolving promise so state stays at 'paying'
       renderCard(() => new Promise(() => {}))
