@@ -39,4 +39,13 @@ describe('routing', () => {
     )
     expect(screen.getByText(/10-class pass/i)).toBeInTheDocument()
   })
+
+  it('renders WalletPage at /wallet', () => {
+    render(
+      <MemoryRouter initialEntries={['/wallet']}>
+        <App />
+      </MemoryRouter>
+    )
+    expect(screen.getByRole('heading', { name: /my wallet/i })).toBeInTheDocument()
+  })
 })

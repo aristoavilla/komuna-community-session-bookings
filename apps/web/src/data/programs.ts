@@ -1293,3 +1293,146 @@ export type IssuedVoucherMock = {
   quantity: number          // UI-only: how many issued
   validity_rule: string     // UI-only: display string
 }
+
+// ─── Wallet mock data ────────────────────────────────────────────────────────
+
+export type VoucherMock = {
+  // ERD: VOUCHER fields
+  id: string
+  program_member_id: string
+  product_id: string
+  purchase_id: string | null    // null for compensation / giveaway
+  issued_by: string | null      // null for purchase-issued vouchers
+  source: 'purchase' | 'compensation' | 'giveaway'
+  status: 'active' | 'claimed' | 'expired' | 'refunded'
+  expired_at: string            // ISO-8601
+
+  // UI-only
+  product_name: string
+  program_id: string
+  program_name: string
+}
+
+// Covers all 4 statuses and all 3 sources across 3 products.
+// Saturday Bag Work (p1): active x3, claimed x1, expired x2
+// Morning Vinyasa (p2): active x1 purchase, active x1 compensation
+// Barbell Fundamentals (p3): refunded x1 giveaway
+export const VOUCHERS: VoucherMock[] = [
+  {
+    id: 'v1',
+    program_member_id: 'pm-1',
+    product_id: 'prod-p1-1',
+    purchase_id: 'pur-1',
+    issued_by: null,
+    source: 'purchase',
+    status: 'active',
+    expired_at: '2026-06-03T00:00:00Z',
+    product_name: 'Saturday Bag Work',
+    program_id: 'p1',
+    program_name: 'Eastside Boxing Club',
+  },
+  {
+    id: 'v2',
+    program_member_id: 'pm-1',
+    product_id: 'prod-p1-1',
+    purchase_id: 'pur-1',
+    issued_by: null,
+    source: 'purchase',
+    status: 'active',
+    expired_at: '2026-06-05T00:00:00Z',
+    product_name: 'Saturday Bag Work',
+    program_id: 'p1',
+    program_name: 'Eastside Boxing Club',
+  },
+  {
+    id: 'v3',
+    program_member_id: 'pm-1',
+    product_id: 'prod-p1-1',
+    purchase_id: 'pur-1',
+    issued_by: null,
+    source: 'purchase',
+    status: 'active',
+    expired_at: '2026-06-15T00:00:00Z',
+    product_name: 'Saturday Bag Work',
+    program_id: 'p1',
+    program_name: 'Eastside Boxing Club',
+  },
+  {
+    id: 'v4',
+    program_member_id: 'pm-1',
+    product_id: 'prod-p1-1',
+    purchase_id: 'pur-1',
+    issued_by: null,
+    source: 'purchase',
+    status: 'claimed',
+    expired_at: '2026-06-07T00:00:00Z',
+    product_name: 'Saturday Bag Work',
+    program_id: 'p1',
+    program_name: 'Eastside Boxing Club',
+  },
+  {
+    id: 'v5',
+    program_member_id: 'pm-1',
+    product_id: 'prod-p1-1',
+    purchase_id: 'pur-2',
+    issued_by: null,
+    source: 'purchase',
+    status: 'expired',
+    expired_at: '2026-03-01T00:00:00Z',
+    product_name: 'Saturday Bag Work',
+    program_id: 'p1',
+    program_name: 'Eastside Boxing Club',
+  },
+  {
+    id: 'v6',
+    program_member_id: 'pm-1',
+    product_id: 'prod-p1-1',
+    purchase_id: 'pur-2',
+    issued_by: null,
+    source: 'purchase',
+    status: 'expired',
+    expired_at: '2026-03-15T00:00:00Z',
+    product_name: 'Saturday Bag Work',
+    program_id: 'p1',
+    program_name: 'Eastside Boxing Club',
+  },
+  {
+    id: 'v8',
+    program_member_id: 'pm-1',
+    product_id: 'prod-p2-1',
+    purchase_id: 'pur-3',
+    issued_by: null,
+    source: 'purchase',
+    status: 'active',
+    expired_at: '2026-05-20T00:00:00Z',
+    product_name: 'Morning Vinyasa',
+    program_id: 'p2',
+    program_name: 'Slow Flow with Ines',
+  },
+  {
+    id: 'v9',
+    program_member_id: 'pm-1',
+    product_id: 'prod-p2-1',
+    purchase_id: null,
+    issued_by: 'admin-1',
+    source: 'compensation',
+    status: 'active',
+    expired_at: '2026-05-25T00:00:00Z',
+    product_name: 'Morning Vinyasa',
+    program_id: 'p2',
+    program_name: 'Slow Flow with Ines',
+  },
+  {
+    id: 'v10',
+    program_member_id: 'pm-1',
+    product_id: 'prod-p3-1',
+    purchase_id: null,
+    issued_by: 'admin-2',
+    source: 'giveaway',
+    status: 'refunded',
+    expired_at: '2026-07-01T00:00:00Z',
+    product_name: 'Barbell Fundamentals',
+    program_id: 'p3',
+    program_name: 'Strong Together',
+  },
+]
