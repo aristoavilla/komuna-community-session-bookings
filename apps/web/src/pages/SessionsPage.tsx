@@ -343,7 +343,7 @@ export function SessionsPage({ sessions: sessionsProp }: SessionsPageProps) {
               </span>
               <span>
                 <span style={{ display: 'inline-block', width: 8, height: 8, borderRadius: 2, background: 'var(--accent-soft-stripe)', marginRight: 5 }} />
-                Out-of-window — request approval
+                Outside booking window — request approval
               </span>
             </div>
           </>

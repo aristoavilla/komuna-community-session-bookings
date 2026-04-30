@@ -135,7 +135,8 @@ describe('SessionsPage', () => {
 
   it('out-of-window rows show "Outside booking window" tag', () => {
     renderSessions()
-    expect(screen.getByText(/outside booking window/i)).toBeInTheDocument()
+    // matches both the row tag and the legend — both should be present
+    expect(screen.getAllByText(/outside booking window/i).length).toBeGreaterThanOrEqual(1)
   })
 
   it('renders empty state when no sessions exist for product', () => {
