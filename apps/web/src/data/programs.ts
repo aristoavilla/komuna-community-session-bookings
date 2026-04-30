@@ -31,7 +31,7 @@ export type SessionInstanceMock = {
   product_id: string
   start_time: string      // ISO-8601
   end_time: string        // ISO-8601
-  status: 'open' | 'full' | 'past'
+  status: 'open' | 'full' | 'out-of-window' | 'past'
   is_active: boolean
   created_at: string      // ISO-8601
 
@@ -1436,3 +1436,189 @@ export const VOUCHERS: VoucherMock[] = [
     program_name: 'Strong Together',
   },
 ]
+
+// ─── Session instances (full schedule, keyed by product_id) ───────────────────
+// Used by SessionsPage. Covers all four status values.
+// Sorted by start_time ascending. TODAY = 2026-04-30T00:00:00Z.
+// Booking window = 14 days → OOW after 2026-05-14.
+
+export const SESSION_INSTANCES: Record<string, SessionInstanceMock[]> = {
+  'prod-p1-1': [
+    // Past
+    {
+      id: 'si-p1-1-past-1',
+      product_id: 'prod-p1-1',
+      start_time: '2026-04-23T13:00:00Z',
+      end_time:   '2026-04-23T14:30:00Z',
+      status: 'past',
+      is_active: false,
+      created_at: '2026-04-01T10:00:00Z',
+      coach: 'Coach Marcus',
+      taken: 14,
+      capacity: 14,
+    },
+    {
+      id: 'si-p1-1-past-2',
+      product_id: 'prod-p1-1',
+      start_time: '2026-04-28T13:00:00Z',
+      end_time:   '2026-04-28T14:30:00Z',
+      status: 'past',
+      is_active: false,
+      created_at: '2026-04-01T10:00:00Z',
+      coach: 'Coach Marcus',
+      taken: 10,
+      capacity: 14,
+    },
+    // Open (within booking window)
+    {
+      id: 'si-p1-1-1',
+      product_id: 'prod-p1-1',
+      start_time: '2026-05-02T13:00:00Z',
+      end_time:   '2026-05-02T14:30:00Z',
+      status: 'open',
+      is_active: true,
+      created_at: '2026-04-01T10:00:00Z',
+      coach: 'Coach Marcus',
+      taken: 5,
+      capacity: 14,
+    },
+    // Full (within booking window)
+    {
+      id: 'si-p1-1-2',
+      product_id: 'prod-p1-1',
+      start_time: '2026-05-05T13:00:00Z',
+      end_time:   '2026-05-05T14:30:00Z',
+      status: 'full',
+      is_active: true,
+      created_at: '2026-04-01T10:00:00Z',
+      coach: 'Coach Marcus',
+      taken: 14,
+      capacity: 14,
+    },
+    // Open (within booking window)
+    {
+      id: 'si-p1-1-3',
+      product_id: 'prod-p1-1',
+      start_time: '2026-05-09T13:00:00Z',
+      end_time:   '2026-05-09T14:30:00Z',
+      status: 'open',
+      is_active: true,
+      created_at: '2026-04-01T10:00:00Z',
+      coach: 'Coach Marcus',
+      taken: 11,
+      capacity: 14,
+    },
+    // Open (within booking window)
+    {
+      id: 'si-p1-1-4',
+      product_id: 'prod-p1-1',
+      start_time: '2026-05-12T13:00:00Z',
+      end_time:   '2026-05-12T14:30:00Z',
+      status: 'open',
+      is_active: true,
+      created_at: '2026-04-01T10:00:00Z',
+      coach: 'Coach Marcus',
+      taken: 3,
+      capacity: 14,
+    },
+    // Out-of-window (beyond 14-day booking window)
+    {
+      id: 'si-p1-1-5',
+      product_id: 'prod-p1-1',
+      start_time: '2026-05-16T13:00:00Z',
+      end_time:   '2026-05-16T14:30:00Z',
+      status: 'out-of-window',
+      is_active: false,
+      created_at: '2026-04-01T10:00:00Z',
+      coach: 'Coach Marcus',
+      taken: 0,
+      capacity: 14,
+    },
+    {
+      id: 'si-p1-1-6',
+      product_id: 'prod-p1-1',
+      start_time: '2026-05-19T13:00:00Z',
+      end_time:   '2026-05-19T14:30:00Z',
+      status: 'out-of-window',
+      is_active: false,
+      created_at: '2026-04-01T10:00:00Z',
+      coach: 'Coach Marcus',
+      taken: 0,
+      capacity: 14,
+    },
+    {
+      id: 'si-p1-1-7',
+      product_id: 'prod-p1-1',
+      start_time: '2026-05-23T13:00:00Z',
+      end_time:   '2026-05-23T14:30:00Z',
+      status: 'out-of-window',
+      is_active: false,
+      created_at: '2026-04-01T10:00:00Z',
+      coach: 'Coach Marcus',
+      taken: 0,
+      capacity: 14,
+    },
+  ],
+  'prod-p2-1': [
+    {
+      id: 'si-p2-1-1',
+      product_id: 'prod-p2-1',
+      start_time: '2026-05-05T07:00:00Z',
+      end_time:   '2026-05-05T08:00:00Z',
+      status: 'open',
+      is_active: true,
+      created_at: '2026-04-01T10:00:00Z',
+      coach: 'Ines Mendes',
+      taken: 4,
+      capacity: 12,
+    },
+    {
+      id: 'si-p2-1-2',
+      product_id: 'prod-p2-1',
+      start_time: '2026-05-07T07:00:00Z',
+      end_time:   '2026-05-07T08:00:00Z',
+      status: 'open',
+      is_active: true,
+      created_at: '2026-04-01T10:00:00Z',
+      coach: 'Ines Mendes',
+      taken: 9,
+      capacity: 12,
+    },
+    {
+      id: 'si-p2-1-3',
+      product_id: 'prod-p2-1',
+      start_time: '2026-05-12T07:00:00Z',
+      end_time:   '2026-05-12T08:00:00Z',
+      status: 'open',
+      is_active: true,
+      created_at: '2026-04-01T10:00:00Z',
+      coach: 'Ines Mendes',
+      taken: 2,
+      capacity: 12,
+    },
+    {
+      id: 'si-p2-1-4',
+      product_id: 'prod-p2-1',
+      start_time: '2026-05-17T07:00:00Z',
+      end_time:   '2026-05-17T08:00:00Z',
+      status: 'out-of-window',
+      is_active: false,
+      created_at: '2026-04-01T10:00:00Z',
+      coach: 'Ines Mendes',
+      taken: 0,
+      capacity: 12,
+    },
+    {
+      id: 'si-p2-1-5',
+      product_id: 'prod-p2-1',
+      start_time: '2026-05-19T07:00:00Z',
+      end_time:   '2026-05-19T08:00:00Z',
+      status: 'out-of-window',
+      is_active: false,
+      created_at: '2026-04-01T10:00:00Z',
+      coach: 'Ines Mendes',
+      taken: 0,
+      capacity: 12,
+    },
+  ],
+}

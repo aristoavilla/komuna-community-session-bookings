@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { PROGRAMS, CATEGORIES, PROGRAM_DETAILS, VOUCHERS } from '../data/programs'
-import type { ProgramDetailMock, ProductMock, VoucherMock } from '../data/programs'
+import { PROGRAMS, CATEGORIES, PROGRAM_DETAILS, VOUCHERS, SESSION_INSTANCES } from '../data/programs'
+import type { ProgramDetailMock, ProductMock, VoucherMock, SessionInstanceMock } from '../data/programs'
 
 describe('mock programs', () => {
   it('has exactly 6 programs', () => {
@@ -72,4 +72,30 @@ it('VOUCHERS covers all three sources', () => {
   expect(sources.has('purchase')).toBe(true)
   expect(sources.has('compensation')).toBe(true)
   expect(sources.has('giveaway')).toBe(true)
+})
+
+it('SESSION_INSTANCES has entries for prod-p1-1 covering all four status values', () => {
+  const sessions: SessionInstanceMock[] = SESSION_INSTANCES['prod-p1-1']
+  expect(sessions).toBeDefined()
+  const statuses = sessions.map(s => s.status)
+  expect(statuses).toContain('open')
+  expect(statuses).toContain('full')
+  expect(statuses).toContain('out-of-window')
+  expect(statuses).toContain('past')
+})
+
+it('SESSION_INSTANCES entries have all required SessionInstanceMock fields', () => {
+  const sessions: SessionInstanceMock[] = SESSION_INSTANCES['prod-p1-1']
+  for (const s of sessions) {
+    expect(s.id).toBeTruthy()
+    expect(s.product_id).toBe('prod-p1-1')
+    expect(s.start_time).toMatch(/^\d{4}-\d{2}-\d{2}T/)
+    expect(s.end_time).toMatch(/^\d{4}-\d{2}-\d{2}T/)
+    expect(['open', 'full', 'out-of-window', 'past']).toContain(s.status)
+    expect(typeof s.is_active).toBe('boolean')
+    expect(s.created_at).toBeTruthy()
+    expect(s.coach).toBeTruthy()
+    expect(s.taken).toBeGreaterThanOrEqual(0)
+    expect(s.capacity).toBeGreaterThan(0)
+  }
 })
