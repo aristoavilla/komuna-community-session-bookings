@@ -1622,3 +1622,163 @@ export const SESSION_INSTANCES: Record<string, SessionInstanceMock[]> = {
     },
   ],
 }
+
+// ─── Bookings mock data ──────────────────────────────────────────────────────
+
+export type CustomFieldAnswerMock = {
+  // ERD: CUSTOM_FIELD_ANSWER fields
+  id: string
+  claim_id: string
+  value: string
+
+  // UI-only
+  field_name: string
+  field_required: boolean
+}
+
+export type VoucherClaimMock = {
+  // ERD: VOUCHER_CLAIM fields
+  id: string
+  voucher_id: string
+  session_id: string
+  claimed_at: string            // ISO-8601
+  alias: string | null
+  attendance_status: 'pending' | 'attended' | 'no-show'
+  grievance_status: 'none' | 'pending' | 'resolved'
+  cancelled_at: string | null   // ISO-8601
+
+  // UI-only
+  product_id: string
+  product_name: string
+  program_id: string
+  program_name: string
+  session_start_time: string    // ISO-8601
+  session_end_time: string      // ISO-8601
+  coach: string
+  session_capacity: number
+  session_taken: number
+  custom_field_answers: CustomFieldAnswerMock[]
+  compensation_voucher_expires_at: string | null
+}
+
+// TODAY = 2026-04-30. Sessions dated after 2026-04-30 are upcoming (active).
+export const BOOKINGS: VoucherClaimMock[] = [
+  // Active 1 — Saturday Bag Work, future session, no custom fields
+  {
+    id: 'bc-1',
+    voucher_id: 'v1',
+    session_id: 'si-p1-1-1',
+    claimed_at: '2026-04-28T10:00:00Z',
+    alias: null,
+    attendance_status: 'pending',
+    grievance_status: 'none',
+    cancelled_at: null,
+    product_id: 'prod-p1-1',
+    product_name: 'Saturday Bag Work',
+    program_id: 'p1',
+    program_name: 'Eastside Boxing Club',
+    session_start_time: '2026-05-02T13:00:00Z',
+    session_end_time: '2026-05-02T14:30:00Z',
+    coach: 'Coach Marcus',
+    session_capacity: 14,
+    session_taken: 5,
+    custom_field_answers: [],
+    compensation_voucher_expires_at: null,
+  },
+  // Active 2 — Morning Vinyasa, future session, with a custom field answer
+  {
+    id: 'bc-2',
+    voucher_id: 'v8',
+    session_id: 'si-p2-1-1',
+    claimed_at: '2026-04-29T08:30:00Z',
+    alias: null,
+    attendance_status: 'pending',
+    grievance_status: 'none',
+    cancelled_at: null,
+    product_id: 'prod-p2-1',
+    product_name: 'Morning Vinyasa',
+    program_id: 'p2',
+    program_name: 'Slow Flow with Ines',
+    session_start_time: '2026-05-05T07:00:00Z',
+    session_end_time: '2026-05-05T08:00:00Z',
+    coach: 'Ines',
+    session_capacity: 12,
+    session_taken: 4,
+    custom_field_answers: [
+      {
+        id: 'cfa-1',
+        claim_id: 'bc-2',
+        value: 'No injuries',
+        field_name: 'Any injuries we should know about?',
+        field_required: false,
+      },
+    ],
+    compensation_voucher_expires_at: null,
+  },
+  // Active 3 — Barbell Fundamentals, future session, no custom fields
+  {
+    id: 'bc-3',
+    voucher_id: 'v3',
+    session_id: 'si-p3-1-2',
+    claimed_at: '2026-04-28T15:00:00Z',
+    alias: null,
+    attendance_status: 'pending',
+    grievance_status: 'none',
+    cancelled_at: null,
+    product_id: 'prod-p3-1',
+    product_name: 'Barbell Fundamentals',
+    program_id: 'p3',
+    program_name: 'Strong Together',
+    session_start_time: '2026-05-07T17:00:00Z',
+    session_end_time: '2026-05-07T18:30:00Z',
+    coach: 'Coach Stefan',
+    session_capacity: 18,
+    session_taken: 11,
+    custom_field_answers: [],
+    compensation_voucher_expires_at: null,
+  },
+  // Past — completed (attended, session already passed)
+  {
+    id: 'bc-4',
+    voucher_id: 'v4',
+    session_id: 'si-p1-1-past-1',
+    claimed_at: '2026-04-20T10:00:00Z',
+    alias: null,
+    attendance_status: 'attended',
+    grievance_status: 'none',
+    cancelled_at: null,
+    product_id: 'prod-p1-1',
+    product_name: 'Saturday Bag Work',
+    program_id: 'p1',
+    program_name: 'Eastside Boxing Club',
+    session_start_time: '2026-04-23T13:00:00Z',
+    session_end_time: '2026-04-23T14:30:00Z',
+    coach: 'Coach Marcus',
+    session_capacity: 14,
+    session_taken: 14,
+    custom_field_answers: [],
+    compensation_voucher_expires_at: null,
+  },
+  // Past — cancelled, with compensation voucher
+  {
+    id: 'bc-5',
+    voucher_id: 'v9',
+    session_id: 'si-p2-1-past',
+    claimed_at: '2026-04-15T08:00:00Z',
+    alias: null,
+    attendance_status: 'pending',
+    grievance_status: 'none',
+    cancelled_at: '2026-04-17T10:00:00Z',
+    product_id: 'prod-p2-1',
+    product_name: 'Morning Vinyasa',
+    program_id: 'p2',
+    program_name: 'Slow Flow with Ines',
+    session_start_time: '2026-04-20T07:00:00Z',
+    session_end_time: '2026-04-20T08:00:00Z',
+    coach: 'Ines',
+    session_capacity: 12,
+    session_taken: 7,
+    custom_field_answers: [],
+    compensation_voucher_expires_at: '2026-06-17T00:00:00Z',
+  },
+]
