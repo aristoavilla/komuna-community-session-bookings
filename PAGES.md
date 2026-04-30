@@ -1,9 +1,5 @@
 # Komuna — Page Build Roadmap
 
-Fetch this design file, read its readme, and implement the relevant aspects of the design. https://api.anthropic.com/v1/design/h/cL5N6ALKD0bsvLPcZDjIwQ?open_file=Komuna+Discovery.html
-Implement: Komuna Discovery.html
-Make sure that the API link is able to be fetched before you work on the project
-
 This file is the single source of truth for frontend page progress. Each page is one unit of work for a subagent. Work sequentially from top to bottom. Mark a page `[x]` only after it is fully implemented, tested, and wired into routing.
 
 > **For subagents:** Read this file first to find the first unchecked `[ ]` page — that is your task. Do not skip ahead or work on multiple pages at once. When done, mark the item `[x]` and stop.
