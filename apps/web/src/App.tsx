@@ -4,6 +4,7 @@ import { ProgramDetailPage } from './pages/ProgramDetailPage'
 import { ProductDetailPage } from './pages/ProductDetailPage'
 import { CheckoutPage } from './pages/CheckoutPage'
 import { WalletPage } from './pages/WalletPage'
+import { SessionsPage } from './pages/SessionsPage'
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
       <Route path="/programs/:id/products/:productId" element={<ProductDetailPage />} />
       <Route path="/programs/:id/packages/:packageId/checkout" element={<CheckoutPage />} />
       <Route path="/wallet" element={<WalletPage />} />
+      <Route path="/programs/:id/products/:productId/sessions" element={<SessionsPage />} />
     </Routes>
   )
 }

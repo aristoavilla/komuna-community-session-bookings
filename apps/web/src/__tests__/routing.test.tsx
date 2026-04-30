@@ -48,4 +48,13 @@ describe('routing', () => {
     )
     expect(screen.getByRole('heading', { name: /my wallet/i })).toBeInTheDocument()
   })
+
+  it('renders SessionsPage at /programs/p1/products/prod-p1-1/sessions', () => {
+    render(
+      <MemoryRouter initialEntries={['/programs/p1/products/prod-p1-1/sessions']}>
+        <App />
+      </MemoryRouter>
+    )
+    expect(screen.getByRole('heading', { name: /saturday bag work/i })).toBeInTheDocument()
+  })
 })

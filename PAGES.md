@@ -1,7 +1,8 @@
 # Komuna — Page Build Roadmap
 
-Fetch this design file, read its readme, and implement the relevant aspects of the design. https://api.anthropic.com/v1/design/h/5alPuSQGkfICU_98vf4zRw?open_file=Komuna+Discovery.html
+Fetch this design file, read its readme, and implement the relevant aspects of the design. https://api.anthropic.com/v1/design/h/cL5N6ALKD0bsvLPcZDjIwQ?open_file=Komuna+Discovery.html
 Implement: Komuna Discovery.html
+Make sure that the API link is able to be fetched before you work on the project
 
 This file is the single source of truth for frontend page progress. Each page is one unit of work for a subagent. Work sequentially from top to bottom. Mark a page `[x]` only after it is fully implemented, tested, and wired into routing.
 
@@ -25,13 +26,13 @@ This file is the single source of truth for frontend page progress. Each page is
 
 - [x] **ProgramDetailPage** — `/programs/:id` — Program info (name, description, location, timezone, visibility badge), products list, join button (one-click for public, request for need-approval, invite-only gate). Links to each ProductDetailPage.
 
-- [ ] **ProductDetailPage** — `/programs/:id/products/:productId` — Product name/description, type badge (session/simple), upcoming sessions preview (next 3–5), list of purchase packages that include this product with prices and validity rules. Book or buy CTA.
+- [x] **ProductDetailPage** — `/programs/:id/products/:productId` — Product name/description, type badge (session/simple), upcoming sessions preview (next 3–5), list of purchase packages that include this product with prices and validity rules. Book or buy CTA.
 
-- [ ] **CheckoutPage** — `/programs/:id/packages/:packageId/checkout` — Package summary, service fee breakdown (`max(percentage × price, minimum_fee)`), Xendit payment initiation, success/failure states. Issues vouchers on confirmed payment.
+- [x] **CheckoutPage** — `/programs/:id/packages/:packageId/checkout` — Package summary, service fee breakdown (`max(percentage × price, minimum_fee)`), Xendit payment initiation, success/failure states. Issues vouchers on confirmed payment.
 
-- [ ] **WalletPage** — `/wallet` — Authenticated member's vouchers grouped by product, sorted by `expiredAt` (soonest first). Toggle to show/hide expired vouchers. Each row shows product, expiry date, status badge (`active | claimed | expired | refunded`), source (`purchase | compensation | giveaway`).
+- [x] **WalletPage** — `/wallet` — Authenticated member's vouchers grouped by product, sorted by `expiredAt` (soonest first). Toggle to show/hide expired vouchers. Each row shows product, expiry date, status badge (`active | claimed | expired | refunded`), source (`purchase | compensation | giveaway`).
 
-- [ ] **SessionsPage** — `/programs/:id/products/:productId/sessions` — Paginated list or calendar of upcoming sessions for a session-type product. Each row shows date/time, manager(s), capacity (`x / total`), and a Book button. Handles full-session request and out-of-window request states. Disabled for simple-type products.
+- [x] **SessionsPage** — `/programs/:id/products/:productId/sessions` — Paginated list or calendar of upcoming sessions for a session-type product. Each row shows date/time, manager(s), capacity (`x / total`), and a Book button. Handles full-session request and out-of-window request states. Disabled for simple-type products.
 
 - [ ] **BookingsPage** — `/my/bookings` — Member's active and past claims. Active tab: upcoming sessions with cancel button (triggers compensation flow confirmation dialog). Past tab: completed/cancelled history with compensation voucher reference. Custom field answers visible per booking.
 
