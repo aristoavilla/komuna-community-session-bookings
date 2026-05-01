@@ -40,7 +40,7 @@ This file is the single source of truth for frontend page progress. Each page is
 
 ## Admin Flow
 
-- [ ] **AdminDashboardPage** — `/programs/:id/admin` — Summary cards: total revenue, active members, sessions this week, pending approvals. Quick-access links to sub-pages. Approval queue badge count.
+- [x] **AdminDashboardPage** — `/programs/:id/admin` — Summary cards: total revenue, active members, sessions this week, pending approvals. Quick-access links to sub-pages. Approval queue badge count.
 
 - [ ] **MembersPage** — `/programs/:id/admin/members` — Member list with role badges. Join request queue for need-approval programs (approve/deny with notification). Invite form (email + optional SMS). Ban/unban action. Role assignment.
 

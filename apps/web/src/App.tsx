@@ -8,6 +8,7 @@ import { SessionsPage } from './pages/SessionsPage'
 import { BookingsPage } from './pages/BookingsPage'
 import { NotificationsPage } from './pages/NotificationsPage'
 import { ProfilePage } from './pages/ProfilePage'
+import { AdminDashboardPage } from './pages/AdminDashboardPage'
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
       <Route path="/my/bookings" element={<BookingsPage />} />
       <Route path="/notifications" element={<NotificationsPage />} />
       <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/programs/:id/admin" element={<AdminDashboardPage />} />
     </Routes>
   )
 }
