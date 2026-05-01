@@ -1782,3 +1782,204 @@ export const BOOKINGS: VoucherClaimMock[] = [
     compensation_voucher_expires_at: '2026-06-17T00:00:00Z',
   },
 ]
+
+// Notification mock data
+
+export type NotificationMock = {
+  // ERD-inferred NOTIFICATION fields from product spec
+  id: string
+  program_member_id: string
+  event_type:
+    | 'booking_confirmed'
+    | 'voucher_expiring'
+    | 'session_cancelled'
+    | 'compensation_issued'
+    | 'purchase_confirmed'
+    | 'approval_decision'
+  title: string
+  body: string
+  target_type: 'session' | 'voucher' | 'booking' | 'purchase' | 'program'
+  target_id: string
+  created_at: string
+  read_at: string | null
+
+  // UI-only
+  program_id: string
+  program_name: string
+  product_id?: string
+  product_name?: string
+  href: string
+  reason?: string
+}
+
+export const NOTIFICATIONS: NotificationMock[] = [
+  {
+    id: 'notif-1',
+    program_member_id: 'pm-1',
+    event_type: 'session_cancelled',
+    title: 'Saturday Bag Work was cancelled',
+    body: 'Coach Marcus cancelled the May 2 session. A compensation voucher has been issued.',
+    target_type: 'booking',
+    target_id: 'bc-1',
+    created_at: '2026-04-30T13:10:00Z',
+    read_at: null,
+    program_id: 'p1',
+    program_name: 'Eastside Boxing Club',
+    product_id: 'prod-p1-1',
+    product_name: 'Saturday Bag Work',
+    href: '/my/bookings',
+    reason: 'Coach is unavailable',
+  },
+  {
+    id: 'notif-2',
+    program_member_id: 'pm-1',
+    event_type: 'booking_confirmed',
+    title: 'Booking confirmed',
+    body: 'You are booked for Morning Vinyasa on Tuesday, 5 May.',
+    target_type: 'session',
+    target_id: 'si-p2-1-1',
+    created_at: '2026-04-29T08:35:00Z',
+    read_at: null,
+    program_id: 'p2',
+    program_name: 'Slow Flow with Ines',
+    product_id: 'prod-p2-1',
+    product_name: 'Morning Vinyasa',
+    href: '/programs/p2/products/prod-p2-1/sessions',
+  },
+  {
+    id: 'notif-3',
+    program_member_id: 'pm-1',
+    event_type: 'voucher_expiring',
+    title: 'Voucher expires soon',
+    body: 'Your Morning Vinyasa voucher expires tomorrow.',
+    target_type: 'voucher',
+    target_id: 'v8',
+    created_at: '2026-04-29T06:00:00Z',
+    read_at: null,
+    program_id: 'p2',
+    program_name: 'Slow Flow with Ines',
+    product_id: 'prod-p2-1',
+    product_name: 'Morning Vinyasa',
+    href: '/wallet',
+  },
+  {
+    id: 'notif-4',
+    program_member_id: 'pm-1',
+    event_type: 'compensation_issued',
+    title: 'Compensation voucher issued',
+    body: 'A replacement voucher is now available in your wallet.',
+    target_type: 'voucher',
+    target_id: 'v9',
+    created_at: '2026-04-27T10:30:00Z',
+    read_at: '2026-04-27T12:00:00Z',
+    program_id: 'p2',
+    program_name: 'Slow Flow with Ines',
+    product_id: 'prod-p2-1',
+    product_name: 'Morning Vinyasa',
+    href: '/wallet',
+  },
+  {
+    id: 'notif-5',
+    program_member_id: 'pm-1',
+    event_type: 'purchase_confirmed',
+    title: 'Purchase confirmed',
+    body: 'Your 10-Class Pass purchase is paid and vouchers are ready.',
+    target_type: 'purchase',
+    target_id: 'pur-1',
+    created_at: '2026-04-24T16:20:00Z',
+    read_at: '2026-04-24T17:45:00Z',
+    program_id: 'p1',
+    program_name: 'Eastside Boxing Club',
+    product_id: 'prod-p1-1',
+    product_name: 'Saturday Bag Work',
+    href: '/wallet',
+  },
+  {
+    id: 'notif-6',
+    program_member_id: 'pm-1',
+    event_type: 'approval_decision',
+    title: 'Join request approved',
+    body: 'You can now book sessions with Slow Flow with Ines.',
+    target_type: 'program',
+    target_id: 'p2',
+    created_at: '2026-04-20T09:00:00Z',
+    read_at: '2026-04-20T09:10:00Z',
+    program_id: 'p2',
+    program_name: 'Slow Flow with Ines',
+    href: '/programs/p2',
+  },
+]
+
+// ─── Admin Dashboard ────────────────────────────────────────────────────────
+
+export type AdminDashboardMock = {
+  // ERD: PROGRAM fields
+  program_id: string
+  program_name: string
+
+  // Stat card data
+  revenue_this_month: number        // cents
+  revenue_last_month: number        // cents
+  revenue_trend: number[]           // monthly values, cents, oldest → newest
+  active_member_count: number
+  member_trend: number[]            // monthly values, counts, oldest → newest
+  sessions_this_week: number
+  sessions_by_day: number[]         // 7 values, Mon–Sun
+  pending_join_requests: number
+  pending_booking_requests: number
+
+  // Revenue chart
+  monthly_revenue: { month: string; amount: number }[]  // up to 12 months, cents
+
+  // Attendance chart
+  attendance_this_week: {
+    product_id: string
+    product_name: string
+    taken: number
+    capacity: number
+  }[]
+
+  // Voucher status chart — ERD: VOUCHER.status values
+  voucher_status_counts: {
+    claimed: number
+    active: number
+    expired: number
+    refunded: number
+  }
+
+  // Nav tile subtitles
+  active_product_count: number
+  archived_product_count: number
+  active_package_count: number
+}
+
+export const ADMIN_DASHBOARD: AdminDashboardMock = {
+  program_id: 'p1',
+  program_name: 'Eastside Boxing Club',
+  revenue_this_month: 1248000,
+  revenue_last_month: 1050000,
+  revenue_trend: [420000, 520000, 610000, 650000, 720000, 800000, 880000, 1050000, 1248000],
+  active_member_count: 84,
+  member_trend: [52, 58, 63, 67, 71, 75, 78, 81, 84],
+  sessions_this_week: 9,
+  sessions_by_day: [0, 2, 2, 3, 0, 1, 1],
+  pending_join_requests: 4,
+  pending_booking_requests: 2,
+  monthly_revenue: [
+    { month: 'Dec', amount: 520000 },
+    { month: 'Jan', amount: 650000 },
+    { month: 'Feb', amount: 800000 },
+    { month: 'Mar', amount: 880000 },
+    { month: 'Apr', amount: 1050000 },
+    { month: 'May', amount: 1248000 },
+  ],
+  attendance_this_week: [
+    { product_id: 'prod-1', product_name: 'Boxing Fundamentals', taken: 14, capacity: 16 },
+    { product_id: 'prod-2', product_name: 'Advanced Sparring',   taken: 8,  capacity: 12 },
+    { product_id: 'prod-3', product_name: 'Bag Work Circuit',    taken: 10, capacity: 10 },
+  ],
+  voucher_status_counts: { claimed: 384, active: 224, expired: 112, refunded: 80 },
+  active_product_count: 5,
+  archived_product_count: 1,
+  active_package_count: 3,
+}
