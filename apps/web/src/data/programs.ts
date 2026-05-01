@@ -1958,7 +1958,7 @@ export const ADMIN_DASHBOARD: AdminDashboardMock = {
   program_name: 'Eastside Boxing Club',
   revenue_this_month: 1248000,
   revenue_last_month: 1050000,
-  revenue_trend: [420000, 520000, 610000, 650000, 720000, 800000, 880000, 1050000, 1248000],
+  revenue_trend: [420000, 520000, 610000, 520000, 650000, 800000, 880000, 1050000, 1248000],
   active_member_count: 84,
   member_trend: [52, 58, 63, 67, 71, 75, 78, 81, 84],
   sessions_this_week: 9,
