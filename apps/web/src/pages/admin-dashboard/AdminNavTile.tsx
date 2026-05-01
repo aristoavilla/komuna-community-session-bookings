@@ -16,7 +16,6 @@ export function AdminNavTile({ emoji, title, subtitle, href, badgeCount, urgent 
       style={{
         display: 'block',
         border: `1px solid ${urgent ? 'var(--accent)' : 'var(--rule)'}`,
-        borderColor: urgent ? 'var(--accent)' : 'var(--rule)',
         background: urgent ? 'var(--accent-soft)' : 'transparent',
         borderRadius: 10,
         padding: 20,
@@ -56,6 +55,7 @@ export function AdminNavTile({ emoji, title, subtitle, href, badgeCount, urgent 
         {subtitle}
       </div>
       <span
+        aria-hidden="true"
         style={{
           position: 'absolute',
           top: 16,

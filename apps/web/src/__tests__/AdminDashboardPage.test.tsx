@@ -145,6 +145,6 @@ describe('AdminNavTile', () => {
     )
     expect(screen.getByText('6')).toBeInTheDocument()
     const link = screen.getByRole('link')
-    expect(link.style.borderColor).toContain('accent')
+    expect(link.style.border).toContain('accent')
   })
 })
