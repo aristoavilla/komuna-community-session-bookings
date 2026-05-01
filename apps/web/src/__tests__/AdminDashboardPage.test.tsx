@@ -7,6 +7,7 @@ import { SessionsBarSparkline } from '../pages/admin-dashboard/SessionsBarSparkl
 import { RevenueChart } from '../pages/admin-dashboard/RevenueChart'
 import { AttendanceChart } from '../pages/admin-dashboard/AttendanceChart'
 import { VoucherStatusChart } from '../pages/admin-dashboard/VoucherStatusChart'
+import { AdminNavTile } from '../pages/admin-dashboard/AdminNavTile'
 
 describe('StatCard', () => {
   it('renders label, value, and meta', () => {
@@ -113,5 +114,37 @@ describe('VoucherStatusChart', () => {
       return sum + w
     }, 0)
     expect(Math.round(total)).toBe(100)
+  })
+})
+
+describe('AdminNavTile', () => {
+  it('renders emoji, title, subtitle, and link', () => {
+    render(
+      <MemoryRouter>
+        <AdminNavTile emoji="📦" title="Products" subtitle="5 active · 1 archived" href="/programs/p1/admin/products" />
+      </MemoryRouter>
+    )
+    expect(screen.getByText('📦')).toBeInTheDocument()
+    expect(screen.getByText('Products')).toBeInTheDocument()
+    expect(screen.getByText('5 active · 1 archived')).toBeInTheDocument()
+    expect(screen.getByRole('link')).toHaveAttribute('href', '/programs/p1/admin/products')
+  })
+
+  it('shows badge and accent border when urgent', () => {
+    render(
+      <MemoryRouter>
+        <AdminNavTile
+          emoji="⏳"
+          title="Approvals"
+          subtitle="4 join · 2 booking requests"
+          href="/programs/p1/admin/approvals"
+          badgeCount={6}
+          urgent
+        />
+      </MemoryRouter>
+    )
+    expect(screen.getByText('6')).toBeInTheDocument()
+    const link = screen.getByRole('link')
+    expect(link.style.borderColor).toContain('accent')
   })
 })
