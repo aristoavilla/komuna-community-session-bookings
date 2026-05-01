@@ -5,6 +5,8 @@ import { StatCard } from '../pages/admin-dashboard/StatCard'
 import { RevenueSparkline } from '../pages/admin-dashboard/RevenueSparkline'
 import { SessionsBarSparkline } from '../pages/admin-dashboard/SessionsBarSparkline'
 import { RevenueChart } from '../pages/admin-dashboard/RevenueChart'
+import { AttendanceChart } from '../pages/admin-dashboard/AttendanceChart'
+import { VoucherStatusChart } from '../pages/admin-dashboard/VoucherStatusChart'
 
 describe('StatCard', () => {
   it('renders label, value, and meta', () => {
@@ -85,5 +87,31 @@ describe('RevenueChart', () => {
     )
     await user.click(screen.getByRole('button', { name: '1Y' }))
     expect(container.querySelectorAll('[data-bar]')).toHaveLength(6)
+  })
+})
+
+describe('AttendanceChart', () => {
+  it('renders one progress bar per product', () => {
+    const products = [
+      { product_id: 'a', product_name: 'Boxing', taken: 14, capacity: 16 },
+      { product_id: 'b', product_name: 'Sparring', taken: 8, capacity: 12 },
+      { product_id: 'c', product_name: 'Bag Work', taken: 10, capacity: 10 },
+    ]
+    const { container } = render(<AttendanceChart products={products} />)
+    expect(container.querySelectorAll('[data-fill]')).toHaveLength(3)
+  })
+})
+
+describe('VoucherStatusChart', () => {
+  it('renders 4 segments whose widths sum to 100%', () => {
+    const counts = { claimed: 384, active: 224, expired: 112, refunded: 80 }
+    const { container } = render(<VoucherStatusChart counts={counts} />)
+    const segments = container.querySelectorAll('[data-segment]')
+    expect(segments).toHaveLength(4)
+    const total = Array.from(segments).reduce((sum, el) => {
+      const w = parseFloat((el as HTMLElement).style.width)
+      return sum + w
+    }, 0)
+    expect(Math.round(total)).toBe(100)
   })
 })
