@@ -1,13 +1,15 @@
 interface NotificationBellProps {
   count?: number
+  onClick?: () => void
 }
 
-export function NotificationBell({ count = 0 }: NotificationBellProps) {
+export function NotificationBell({ count = 0, onClick }: NotificationBellProps) {
   return (
     <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
       <button
-        aria-label="Notifications"
+        aria-label="View notifications"
         type="button"
+        onClick={onClick}
         style={{
           width: 38, height: 38, borderRadius: 999,
           border: '1px solid var(--rule)', background: 'var(--paper-1)',
