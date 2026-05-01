@@ -60,9 +60,9 @@ function CardShell({ sublabel, title, children }: { sublabel: string; title: str
         <div style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--ink-3)', marginBottom: 4 }}>
           {sublabel}
         </div>
-        <div style={{ fontFamily: 'var(--font-serif, serif)', fontSize: 20, color: 'var(--ink-1)' }}>
+        <h2 style={{ margin: 0, fontFamily: 'var(--font-serif, serif)', fontSize: 20, color: 'var(--ink-1)' }}>
           {title}
-        </div>
+        </h2>
       </div>
       <div style={{ padding: 24 }}>
         {children}
@@ -111,6 +111,7 @@ export function ProfilePage({
                   key={item.id}
                   type="button"
                   onClick={() => setActiveSection(item.id)}
+                  aria-current={active ? 'page' : undefined}
                   style={{
                     display: 'flex', alignItems: 'center', gap: 10,
                     padding: '9px 12px', borderRadius: 8,
@@ -121,7 +122,7 @@ export function ProfilePage({
                     cursor: 'pointer', textAlign: 'left', width: '100%',
                   }}
                 >
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', flexShrink: 0, background: 'var(--accent)', opacity: active ? 1 : 0 }} />
+                  <span aria-hidden="true" style={{ width: 6, height: 6, borderRadius: '50%', flexShrink: 0, background: 'var(--accent)', opacity: active ? 1 : 0 }} />
                   {item.label}
                 </button>
               )
@@ -192,7 +193,7 @@ export function ProfilePage({
                             }}
                           >
                             <span style={{
-                              position: 'absolute', top: on ? 3 : 2,
+                              position: 'absolute', top: '50%', transform: 'translateY(-50%)',
                               left: on ? 21 : 3,
                               width: 16, height: 16, borderRadius: '50%',
                               background: 'white',
@@ -216,6 +217,7 @@ export function ProfilePage({
                 <CardShell sublabel="§08.3 · Account" title="Account settings">
                   <button
                     type="button"
+                    onClick={() => { /* TODO: wire to auth sign-out */ }}
                     style={{
                       display: 'inline-flex', alignItems: 'center',
                       padding: '10px 20px', borderRadius: 8,
