@@ -1,7 +1,7 @@
 const DAY_LABELS = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
 
 type SessionsBarSparklineProps = {
-  values: number[]  // 7 values, Mon–Sun
+  values: [number, number, number, number, number, number, number]  // Mon–Sun
   width?: number
   height?: number
 }
