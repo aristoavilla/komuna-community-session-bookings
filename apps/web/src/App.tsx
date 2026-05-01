@@ -6,6 +6,8 @@ import { CheckoutPage } from './pages/CheckoutPage'
 import { WalletPage } from './pages/WalletPage'
 import { SessionsPage } from './pages/SessionsPage'
 import { BookingsPage } from './pages/BookingsPage'
+import { NotificationsPage } from './pages/NotificationsPage'
+import { ProfilePage } from './pages/ProfilePage'
 
 export default function App() {
   return (
@@ -17,6 +19,8 @@ export default function App() {
       <Route path="/wallet" element={<WalletPage />} />
       <Route path="/programs/:id/products/:productId/sessions" element={<SessionsPage />} />
       <Route path="/my/bookings" element={<BookingsPage />} />
+      <Route path="/notifications" element={<NotificationsPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
     </Routes>
   )
 }

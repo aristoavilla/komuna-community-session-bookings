@@ -49,6 +49,15 @@ describe('routing', () => {
     expect(screen.getByRole('heading', { name: /my wallet/i })).toBeInTheDocument()
   })
 
+  it('renders NotificationsPage at /notifications', () => {
+    render(
+      <MemoryRouter initialEntries={['/notifications']}>
+        <App />
+      </MemoryRouter>
+    )
+    expect(screen.getByRole('heading', { name: /^notifications$/i })).toBeInTheDocument()
+  })
+
   it('renders SessionsPage at /programs/p1/products/prod-p1-1/sessions', () => {
     render(
       <MemoryRouter initialEntries={['/programs/p1/products/prod-p1-1/sessions']}>
@@ -56,5 +65,14 @@ describe('routing', () => {
       </MemoryRouter>
     )
     expect(screen.getByRole('heading', { name: /saturday bag work/i })).toBeInTheDocument()
+  })
+
+  it('renders ProfilePage at /profile', () => {
+    render(
+      <MemoryRouter initialEntries={['/profile']}>
+        <App />
+      </MemoryRouter>
+    )
+    expect(screen.getByRole('heading', { name: /my profile/i })).toBeInTheDocument()
   })
 })

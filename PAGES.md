@@ -32,9 +32,9 @@ This file is the single source of truth for frontend page progress. Each page is
 
 - [x] **BookingsPage** — `/my/bookings` — Member's active and past claims. Active tab: upcoming sessions with cancel button (triggers compensation flow confirmation dialog). Past tab: completed/cancelled history with compensation voucher reference. Custom field answers visible per booking.
 
-- [ ] **NotificationsPage** — `/notifications` — Chronological in-app notification feed. Pairs with the existing `NotificationBell` component. Mark-all-read action. Links from each notification to the relevant entity (session, voucher, booking).
+- [x] **NotificationsPage** — `/notifications` — Chronological in-app notification feed. Pairs with the existing `NotificationBell` component. Mark-all-read action. Links from each notification to the relevant entity (session, voucher, booking).
 
-- [ ] **ProfilePage** — `/profile` — Display name, email (read-only from auth provider). Email notification toggles per event type (on/off). Account settings.
+- [x] **ProfilePage** — `/profile` — Display name, email (read-only from auth provider). Email notification toggles per event type (on/off). Account settings.
 
 ---
 
